@@ -5,3 +5,4 @@ __pycache__/
 outputs/
 wandb/
 .ipynb_checkpoints/
+checkpoints/*.pth

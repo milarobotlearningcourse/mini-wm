@@ -16,12 +16,16 @@ goal is to see, side by side, what each model predicts, how it learns and how it
 
 ![What each model predicts](docs/policy_vs_world_models.svg)
 
-**Start with the tutorial notebook, [mini_wm_tutorial.ipynb](mini_wm_tutorial.ipynb).** It goes through each model with
-diagrams, builds it from its config, runs it on a real LIBERO-90 batch, and runs a pretrained mini-FM in the LIBERO-90 sim.
+**Start with the tutorial notebook, [mini_wm_tutorial.ipynb](mini_wm_tutorial.ipynb)**
+([open it in Colab](https://colab.research.google.com/github/milarobotlearningcourse/mini-wm/blob/main/mini_wm_tutorial.ipynb)).
+It goes through each model with diagrams, builds it from its config, runs it on a real LIBERO-90 batch, and runs a
+pretrained mini-FM in the LIBERO-90 sim. On Colab, its first cell installs everything; any runtime works, the CPU too.
 
 ## Setup
 
-You need Linux and an NVIDIA GPU (the LIBERO sim renders with EGL), and [uv](https://docs.astral.sh/uv/getting-started/installation/).
+You need Linux and [uv](https://docs.astral.sh/uv/getting-started/installation/). The CPU is enough; a GPU (NVIDIA or AMD)
+makes training faster. The LIBERO sim renders off-screen with EGL (`MUJOCO_GL=egl`), or with `MUJOCO_GL=osmesa` on a
+machine without a GPU.
 LIBERO is installed from a clone next to this repo:
 ```
 git clone https://github.com/milarobotlearningcourse/mini-wm.git
@@ -91,7 +95,9 @@ uv run -m pytest tests/ -v                                          # all of the
 - `sim_eval.py`: batched rollouts in the LIBERO sim, for the sim evals and RL fine-tuning.
 - `logger.py`: TensorBoard and wandb.
 - `conf/`: the configs (hydra). `docs/`: the notebook's diagrams.
-- `checkpoints/miniFM_libero90.pth`: a mini-FM trained on LIBERO-90 for 25k steps, for the notebook and RL fine-tuning.
+- `checkpoints/miniFM_libero90.pth`: a mini-FM trained on LIBERO-90 for 25k steps, for the notebook and RL fine-tuning. It is
+  not in git: the notebook downloads it from [gberseth/mini-wm](https://huggingface.co/gberseth/mini-wm), or run
+  `hf download gberseth/mini-wm miniFM_libero90.pth --local-dir checkpoints`.
 
 The data is [gberseth/libero_90_no_noops_lerobot](https://huggingface.co/datasets/gberseth/libero_90_no_noops_lerobot):
 LIBERO-90's 3,933 demonstrations (90 tasks, 20 Hz) re-rendered without their no-op actions, with a wrist and an
