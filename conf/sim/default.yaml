@@ -1,0 +1,24 @@
+## The sim evals during training (sim_eval.py), the default of every pre-training config; sim=testing picks the tests'
+## short eval. Its keys are under sim. in the run's config. Every LIBERO suite listed under simulators.libero.task_sets
+## is evaluated, whatever the datasets trained on, with the camera of its dataset (dataset.robot_image_key) at
+## image_shape, and its actions are un-whitened with that dataset's stats. Results go to sim/success_rate (the mean over
+## suites), sim/success_rate_<suite> and sim_<suite>/task_<id>, with one rollout video per task in sim_eval/<suite>/ of
+## the run folder.
+simulators:
+  libero:
+    engine: "robosuite on MuJoCo, on the CPU (one env process per task)"
+    eval_tasks: null ## task ids to sample from in each suite; null means all of the suite's tasks
+    tasks_per_eval: 10 ## tasks sampled from each suite at every sim eval (a new random sample each time)
+    num_init_states: [0] ## the episodes per task, one from each of these init states (e.g. [0, 1] for two): init state i of a task is
+      ## the scene its i-th demo started from in the dataset trained on the suite (sim_eval.dataset_init_states; LIBERO's fixed
+      ## benchmark init states for tasks without demos or suites not trained on)
+    episode_length: 400 ## max steps per episode in every suite; null means LIBERO's standard limit for each suite (spatial 220, object 280, goal 300, 10 520, 90 400)
+    wait_steps: 10 ## no-op steps first, so objects settle (as in the dataset regeneration)
+    task_sets: ## the suites to evaluate, with a description of each (logged with the run's config)
+      libero_90:
+        robot: Franka Panda
+        tasks: "90: short tasks in kitchen, living room and study scenes"
+eval_interval: 10000 ## steps between sim evaluations (at 10k, 20k and the last step of a 25k-step run); 0 turns them off
+background: true ## run them in a separate low-priority process, so training doesn't wait (false: in the training process, which waits)
+device: cpu ## where the background evaluator runs the model: cpu leaves the GPU to training
+task_sets: null ## null evaluates every suite listed under simulators.libero.task_sets; a list (e.g. sim.task_sets=[libero_spatial]) overrides that

@@ -1,0 +1,31 @@
+## mini-VLAPS (mini_vlaps.py): Monte Carlo tree search with a pre-trained mini-Dreamer's world model and the mini-FM
+## trained next to it, in a LIBERO suite, after VLAPS (arXiv 2508.12211). No training. Run by
+##   uv run mini_train.py --config-name mini-vlaps init_model=<path to miniDreamer_best.pth>
+defaults:
+  - sim: default ## the LIBERO suite (its one task set, or sim.task_sets=[<suite>]), episode_length and wait_steps, shared with pre-training (conf/sim/)
+  - _self_
+
+experiment:
+  name: vlaps
+  project: mini-wm
+
+trainer: vlaps ## mini_train.py runs the search (mini_vlaps.py)
+
+init_model: ??? ## a miniDreamer_best.pth saved by mini_train.py --config-name mini-dreamer, relative to the repo root
+tasks: null ## task ids of the suite; null means all of its tasks
+init_states: [0, 2] ## [first, last) init states of every task: the starts of the dataset's demos, whose last frames are the goal images
+
+vlaps:
+  simulations: 20 ## selections and expansions per search, before each chunk (VLAPS: 300); 0 runs mini-FM alone
+  children: 8 ## candidate chunks per expanded node: the policy's and children - 1 noisy ones (VLAPS: 10)
+  noise_std: 0.3 ## std of the noise added to the policy's chunk, in whitened action units
+  alpha: 1.0 ## inverse temperature of the prior, a softmax of the negative distance to the policy's chunk (VLAPS: 5)
+  epsilon: 0.1 ## share of the prior spread uniformly over the children (VLAPS: 0.1)
+  rollout_chunks: 8 ## chunks of the policy's rollout in the world model from each new child (VLAPS: up to 300 steps)
+  goal_mse: 0.01 ## an imagined frame within this mean squared error of the goal image (pixels in image_bounds, at frame_size) counts as a success
+
+r_seed: 1
+device: cuda
+precision: bf16 ## fp32 or bf16 (autocast)
+testing: true ## true turns off wandb logging (TensorBoard still logs)
+tensorboard: true

@@ -1,0 +1,397 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1418" viewBox="0 0 560 1418">
+<rect x="0.0" y="0.0" width="560.0" height="1418.0" fill="#F5FAFD"/>
+<text x="16.0" y="34.0" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-Dreamer: a recurrent world model</text>
+<text x="16.0" y="56.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">DreamerV3's RSSM predicts the frame (32×32), reward and value after each action.</text>
+<rect x="16.0" y="72.0" width="528.0" height="1000.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="94.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">TRAINING</text>
+<text x="30.0" y="116.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">The RSSM, unrolled over 1 + 16 frames</text>
+<text x="30.0" y="136.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">Time runs down; the GRU steps h. The KL teaches the prior to predict the posterior's z.</text>
+<rect x="37.0" y="149.0" width="58.0" height="30.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text xml:space="preserve" x="66.0" y="169.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="11.2" baseline-shift="sub">0</tspan></text>
+<text x="532.0" y="169.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="end" font-family="'Courier New', monospace">t = 0</text>
+<line x1="95.0" y1="164.0" x2="110.0" y2="164.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="164.0" x2="110.0" y2="280.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="164.0" x2="120.0" y2="164.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,164.0 119.0,166.9 119.0,161.1" fill="#3D5878"/>
+<line x1="110.0" y1="224.0" x2="120.0" y2="224.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,224.0 119.0,226.9 119.0,221.1" fill="#3D5878"/>
+<rect x="126.0" y="144.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="161.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">prior</text>
+<text xml:space="preserve" x="184.0" y="178.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>p(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan>)</tspan></text>
+<rect x="126.0" y="204.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="221.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">posterior</text>
+<text xml:space="preserve" x="184.0" y="238.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>q(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan>)</tspan></text>
+<path d="M242.0,164 L256.0,164 L256.0,224 L242.0,224" fill="none" stroke="#7A3020" stroke-width="1.4" stroke-linejoin="round" stroke-dasharray="4 3"/>
+<text x="262.0" y="199.0" font-size="13" fill="#7A3020" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KL</text>
+<rect x="470.0" y="205.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="231.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="479.5" y="224.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="205.0" x2="497.4" y2="217.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="217.2" width="6.1" height="2.3" fill="#0E1F32"/>
+<rect x="470.0" y="205.0" width="38.0" height="38.0" fill="none" rx="2.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text xml:space="preserve" x="460.0" y="200.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<line x1="466.0" y1="224.0" x2="357.0" y2="224.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="351.0,224.0 358.0,221.1 358.0,226.9" fill="#3D5878"/>
+<path d="M304,217.4 L348,209 L348,239 L304,230.6 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="301.0" y1="224.0" x2="249.0" y2="224.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="243.0,224.0 250.0,221.1 250.0,226.9" fill="#3D5878"/>
+<text xml:space="preserve" x="288.0" y="217.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<line x1="190.0" y1="244.0" x2="190.0" y2="259.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="190.0,265.0 187.1,258.0 192.9,258.0" fill="#3D5878"/>
+<line x1="110.0" y1="280.0" x2="154.0" y2="280.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="160.0,280.0 153.0,282.9 153.0,277.1" fill="#3D5878"/>
+<rect x="162.0" y="266.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="176.5" y="266.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="266.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="190.5" y="266.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="266.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="273.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="273.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="273.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="273.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="176.5" y="280.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="183.5" y="280.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="280.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="280.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="287.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="287.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="287.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="197.5" y="287.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="220.0" y="285.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<line x1="234.0" y1="280.0" x2="295.0" y2="280.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="301.0,280.0 294.0,282.9 294.0,277.1" fill="#3D5878"/>
+<path d="M304,265 L348,273.4 L348,286.6 L304,295 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="351.0" y1="280.0" x2="460.0" y2="280.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="466.0,280.0 459.0,282.9 459.0,277.1" fill="#3D5878"/>
+<g opacity="0.65"><rect x="470.0" y="261.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="287.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="479.5" y="280.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="261.0" x2="497.4" y2="273.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="273.2" width="6.1" height="2.3" fill="#0E1F32"/></g>
+<rect x="470" y="261.0" width="38" height="38" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="460.0" y="306.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<text transform="rotate(90 489.0 252.0)" x="489.0" y="258.0" font-size="18" fill="#5B6B73" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">≈</text>
+<line x1="164.0" y1="320.0" x2="334.0" y2="320.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="164.0" y1="294.0" x2="164.0" y2="320.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="334.0" y1="320.0" x2="334.0" y2="330.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="334.0,336.0 331.1,329.0 336.9,329.0" fill="#3D5878"/>
+<rect x="276.0" y="336.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="334.0" y="353.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">critic</text>
+<text xml:space="preserve" x="334.0" y="370.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>v</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan></text>
+<text x="326.0" y="254.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">CNN</text>
+<text x="326.0" y="310.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">decoder</text>
+<rect x="37.0" y="399.0" width="58.0" height="30.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text xml:space="preserve" x="66.0" y="419.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="11.2" baseline-shift="sub">1</tspan></text>
+<text x="532.0" y="419.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="end" font-family="'Courier New', monospace">t = 1</text>
+<line x1="95.0" y1="414.0" x2="110.0" y2="414.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="414.0" x2="110.0" y2="530.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="414.0" x2="120.0" y2="414.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,414.0 119.0,416.9 119.0,411.1" fill="#3D5878"/>
+<line x1="110.0" y1="474.0" x2="120.0" y2="474.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,474.0 119.0,476.9 119.0,471.1" fill="#3D5878"/>
+<rect x="126.0" y="394.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="411.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">prior</text>
+<text xml:space="preserve" x="184.0" y="428.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>p(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan>)</tspan></text>
+<rect x="126.0" y="454.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="471.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">posterior</text>
+<text xml:space="preserve" x="184.0" y="488.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>q(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan>)</tspan></text>
+<path d="M242.0,414 L256.0,414 L256.0,474 L242.0,474" fill="none" stroke="#7A3020" stroke-width="1.4" stroke-linejoin="round" stroke-dasharray="4 3"/>
+<text x="262.0" y="449.0" font-size="13" fill="#7A3020" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KL</text>
+<rect x="470.0" y="455.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="481.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="482.2" y="474.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="455.0" x2="497.4" y2="467.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="467.2" width="6.1" height="2.3" fill="#0E1F32"/>
+<rect x="470.0" y="455.0" width="38.0" height="38.0" fill="none" rx="2.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text xml:space="preserve" x="460.0" y="450.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<line x1="466.0" y1="474.0" x2="357.0" y2="474.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="351.0,474.0 358.0,471.1 358.0,476.9" fill="#3D5878"/>
+<path d="M304,467.4 L348,459 L348,489 L304,480.6 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="301.0" y1="474.0" x2="249.0" y2="474.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="243.0,474.0 250.0,471.1 250.0,476.9" fill="#3D5878"/>
+<text xml:space="preserve" x="288.0" y="467.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<line x1="190.0" y1="494.0" x2="190.0" y2="509.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="190.0,515.0 187.1,508.0 192.9,508.0" fill="#3D5878"/>
+<line x1="110.0" y1="530.0" x2="154.0" y2="530.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="160.0,530.0 153.0,532.9 153.0,527.1" fill="#3D5878"/>
+<rect x="162.0" y="516.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="176.5" y="516.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="516.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="190.5" y="516.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="516.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="523.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="523.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="523.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="523.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="176.5" y="530.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="183.5" y="530.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="530.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="530.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="537.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="537.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="537.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="197.5" y="537.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="220.0" y="535.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<line x1="234.0" y1="530.0" x2="295.0" y2="530.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="301.0,530.0 294.0,532.9 294.0,527.1" fill="#3D5878"/>
+<path d="M304,515 L348,523.4 L348,536.6 L304,545 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="351.0" y1="530.0" x2="460.0" y2="530.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="466.0,530.0 459.0,532.9 459.0,527.1" fill="#3D5878"/>
+<g opacity="0.65"><rect x="470.0" y="511.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="537.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="482.2" y="530.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="511.0" x2="497.4" y2="523.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="523.2" width="6.1" height="2.3" fill="#0E1F32"/></g>
+<rect x="470" y="511.0" width="38" height="38" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="460.0" y="556.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<text transform="rotate(90 489.0 502.0)" x="489.0" y="508.0" font-size="18" fill="#5B6B73" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">≈</text>
+<line x1="164.0" y1="570.0" x2="334.0" y2="570.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="164.0" y1="544.0" x2="164.0" y2="570.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="184.0" y1="570.0" x2="184.0" y2="580.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="184.0,586.0 181.1,579.0 186.9,579.0" fill="#3D5878"/>
+<rect x="126.0" y="586.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="603.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">reward</text>
+<text xml:space="preserve" x="184.0" y="620.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan></text>
+<line x1="334.0" y1="570.0" x2="334.0" y2="580.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="334.0,586.0 331.1,579.0 336.9,579.0" fill="#3D5878"/>
+<rect x="276.0" y="586.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="334.0" y="603.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">critic</text>
+<text xml:space="preserve" x="334.0" y="620.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>v</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan></text>
+<rect x="37.0" y="679.0" width="58.0" height="30.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text xml:space="preserve" x="66.0" y="699.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="11.2" baseline-shift="sub">16</tspan></text>
+<text x="532.0" y="699.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="end" font-family="'Courier New', monospace">t = 16</text>
+<line x1="95.0" y1="694.0" x2="110.0" y2="694.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="694.0" x2="110.0" y2="810.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="110.0" y1="694.0" x2="120.0" y2="694.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,694.0 119.0,696.9 119.0,691.1" fill="#3D5878"/>
+<line x1="110.0" y1="754.0" x2="120.0" y2="754.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="126.0,754.0 119.0,756.9 119.0,751.1" fill="#3D5878"/>
+<rect x="126.0" y="674.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="691.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">prior</text>
+<text xml:space="preserve" x="184.0" y="708.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>p(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan>)</tspan></text>
+<rect x="126.0" y="734.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="751.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">posterior</text>
+<text xml:space="preserve" x="184.0" y="768.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>q(</tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan>)</tspan></text>
+<path d="M242.0,694 L256.0,694 L256.0,754 L242.0,754" fill="none" stroke="#7A3020" stroke-width="1.4" stroke-linejoin="round" stroke-dasharray="4 3"/>
+<text x="262.0" y="729.0" font-size="13" fill="#7A3020" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KL</text>
+<rect x="470.0" y="735.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="761.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="490.9" y="754.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="735.0" x2="497.4" y2="747.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="747.2" width="6.1" height="2.3" fill="#0E1F32"/>
+<rect x="470.0" y="735.0" width="38.0" height="38.0" fill="none" rx="2.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text xml:space="preserve" x="460.0" y="730.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<line x1="466.0" y1="754.0" x2="357.0" y2="754.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="351.0,754.0 358.0,751.1 358.0,756.9" fill="#3D5878"/>
+<path d="M304,747.4 L348,739 L348,769 L304,760.6 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="301.0" y1="754.0" x2="249.0" y2="754.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="243.0,754.0 250.0,751.1 250.0,756.9" fill="#3D5878"/>
+<text xml:space="preserve" x="288.0" y="747.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">e</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<line x1="190.0" y1="774.0" x2="190.0" y2="789.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="190.0,795.0 187.1,788.0 192.9,788.0" fill="#3D5878"/>
+<line x1="110.0" y1="810.0" x2="154.0" y2="810.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="160.0,810.0 153.0,812.9 153.0,807.1" fill="#3D5878"/>
+<rect x="162.0" y="796.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="176.5" y="796.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="796.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="190.5" y="796.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="796.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="803.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="803.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="803.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="803.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="176.5" y="810.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="183.5" y="810.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="810.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="197.5" y="810.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="176.5" y="817.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="183.5" y="817.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="190.5" y="817.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="197.5" y="817.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="220.0" y="815.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<line x1="234.0" y1="810.0" x2="295.0" y2="810.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="301.0,810.0 294.0,812.9 294.0,807.1" fill="#3D5878"/>
+<path d="M304,795 L348,803.4 L348,816.6 L304,825 Z" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2" stroke-linejoin="round"/>
+<line x1="351.0" y1="810.0" x2="460.0" y2="810.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="466.0,810.0 459.0,812.9 459.0,807.1" fill="#3D5878"/>
+<g opacity="0.65"><rect x="470.0" y="791.0" width="38.0" height="38.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="470.0" y="817.6" width="38.0" height="11.4" fill="#A9C4D4"/>
+<rect x="490.9" y="810.8" width="8.4" height="6.8" fill="#3D5878" rx="1.0"/>
+<line x1="497.4" y1="791.0" x2="497.4" y2="803.2" stroke="#D86000" stroke-width="2.7" stroke-linecap="butt"/>
+<rect x="494.3" y="803.2" width="6.1" height="2.3" fill="#0E1F32"/></g>
+<rect x="470" y="791.0" width="38" height="38" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="460.0" y="836.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<text transform="rotate(90 489.0 782.0)" x="489.0" y="788.0" font-size="18" fill="#5B6B73" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">≈</text>
+<line x1="164.0" y1="850.0" x2="184.0" y2="850.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="164.0" y1="824.0" x2="164.0" y2="850.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<line x1="184.0" y1="850.0" x2="184.0" y2="860.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="184.0,866.0 181.1,859.0 186.9,859.0" fill="#3D5878"/>
+<rect x="126.0" y="866.0" width="116.0" height="40.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="184.0" y="883.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">reward</text>
+<text xml:space="preserve" x="184.0" y="900.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan></text>
+<line x1="66.0" y1="179.0" x2="66.0" y2="393.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="66.0,399.0 63.1,392.0 68.9,392.0" fill="#3D5878"/>
+<line x1="106.0" y1="377.0" x2="75.0" y2="377.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="70.0,377.0 76.0,374.5 76.0,379.5" fill="#3D5878"/>
+<text xml:space="preserve" x="110.0" y="382.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<line x1="66.0" y1="429.0" x2="66.0" y2="673.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt" stroke-dasharray="4 3"/>
+<polygon points="66.0,679.0 63.1,672.0 68.9,672.0" fill="#3D5878"/>
+<line x1="106.0" y1="657.0" x2="75.0" y2="657.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="70.0,657.0 76.0,654.5 76.0,659.5" fill="#3D5878"/>
+<text xml:space="preserve" x="110.0" y="662.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="10.5" baseline-shift="sub">15</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">15</tspan></text>
+<text x="184.0" y="660.0" font-size="18" fill="#5B6B73" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">⋮</text>
+<line x1="30.0" y1="918.0" x2="530.0" y2="918.0" stroke="#A9C4D4" stroke-width="1.0" stroke-linecap="butt"/>
+<text xml:space="preserve" x="280.0" y="940.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>L</tspan><tspan font-style="normal"> = frames + 1 · kl</tspan><tspan font-size="11.2" baseline-shift="sub">dyn</tspan><tspan font-style="normal"> + 0.1 · kl</tspan><tspan font-size="11.2" baseline-shift="sub">rep</tspan><tspan font-style="normal"> + reward + critic</tspan></text>
+<text x="30.0" y="966.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">frames: squared error summed over each frame's pixels</text>
+<text x="30.0" y="984.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">kl_dyn = KL(sg(q) ‖ p) trains the prior;  kl_rep = KL(q ‖ sg(p)) the posterior</text>
+<text x="30.0" y="1002.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">reward: predicted r against the real r, 1 once the demo's last frame is reached (symlog)</text>
+<text x="30.0" y="1020.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">critic: v towards the λ-return of r and the slow critic's values (symlog)</text>
+<text x="30.0" y="1038.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">All four train the RSSM, so (h, z) keeps what predicts rewards and values.</text>
+<text x="30.0" y="1056.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">each KL at least 1 nat (free bits);  z: 32 categoricals of 32 classes, or Gaussian</text>
+<rect x="16.0" y="1086.0" width="528.0" height="316.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="1108.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">IMAGINATION</text>
+<text x="30.0" y="1130.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM acts in the dream for 16 steps</text>
+<rect x="24.0" y="1163.0" width="30.0" height="30.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="24.0" y="1184.0" width="30.0" height="9.0" fill="#A9C4D4"/>
+<rect x="33.0" y="1178.6" width="6.6" height="5.4" fill="#3D5878" rx="1.0"/>
+<line x1="45.6" y1="1163.0" x2="45.6" y2="1172.6" stroke="#D86000" stroke-width="2.1" stroke-linecap="butt"/>
+<rect x="43.2" y="1172.6" width="4.8" height="1.8" fill="#0E1F32"/>
+<rect x="24.0" y="1163.0" width="30.0" height="30.0" fill="none" rx="2.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text xml:space="preserve" x="39.0" y="1210.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<line x1="56.0" y1="1178.0" x2="61.0" y2="1178.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="66.0,1178.0 60.0,1180.5 60.0,1175.5" fill="#3D5878"/>
+<text x="24.0" y="1230.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">encoded</text>
+<rect x="70.0" y="1164.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="84.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="91.5" y="1164.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="98.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="105.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="84.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="91.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="98.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="105.5" y="1171.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="84.5" y="1178.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="91.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="98.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="105.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="84.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="91.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="98.5" y="1185.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="105.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="90.0" y="1156.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan></text>
+<line x1="96.0" y1="1196.0" x2="96.0" y2="1207.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="96.0,1212.0 93.5,1206.0 98.5,1206.0" fill="#3D5878"/>
+<g opacity="0.65"><rect x="80.0" y="1216.0" width="32.0" height="32.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="80.0" y="1238.4" width="32.0" height="9.6" fill="#A9C4D4"/>
+<rect x="88.0" y="1232.6" width="7.0" height="5.8" fill="#3D5878" rx="1.0"/>
+<line x1="103.0" y1="1216.0" x2="103.0" y2="1226.2" stroke="#D86000" stroke-width="2.3" stroke-linecap="butt"/>
+<rect x="100.5" y="1226.2" width="5.1" height="1.9" fill="#0E1F32"/></g>
+<rect x="80" y="1216" width="32" height="32" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="96.0" y="1266.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan></text>
+<rect x="192.0" y="1164.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="206.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="213.5" y="1164.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="220.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="227.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="206.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="213.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="220.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="227.5" y="1171.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="206.5" y="1178.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="213.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="220.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="227.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="206.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="213.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="220.5" y="1185.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="227.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="212.0" y="1156.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan></text>
+<line x1="218.0" y1="1196.0" x2="218.0" y2="1207.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="218.0,1212.0 215.5,1206.0 220.5,1206.0" fill="#3D5878"/>
+<g opacity="0.65"><rect x="202.0" y="1216.0" width="32.0" height="32.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="202.0" y="1238.4" width="32.0" height="9.6" fill="#A9C4D4"/>
+<rect x="212.6" y="1232.6" width="7.0" height="5.8" fill="#3D5878" rx="1.0"/>
+<line x1="225.0" y1="1216.0" x2="225.0" y2="1226.2" stroke="#D86000" stroke-width="2.3" stroke-linecap="butt"/>
+<rect x="222.5" y="1226.2" width="5.1" height="1.9" fill="#0E1F32"/></g>
+<rect x="202" y="1216" width="32" height="32" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="218.0" y="1266.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan></text>
+<text xml:space="preserve" x="218.0" y="1290.0" font-size="15" fill="#D86000" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<rect x="314.0" y="1164.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="328.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="335.5" y="1164.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="342.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="349.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="328.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="335.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="342.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="349.5" y="1171.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="328.5" y="1178.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="335.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="342.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="349.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="328.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="335.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="342.5" y="1185.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="349.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="334.0" y="1156.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">2</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">2</tspan></text>
+<line x1="340.0" y1="1196.0" x2="340.0" y2="1207.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="340.0,1212.0 337.5,1206.0 342.5,1206.0" fill="#3D5878"/>
+<g opacity="0.65"><rect x="324.0" y="1216.0" width="32.0" height="32.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="324.0" y="1238.4" width="32.0" height="9.6" fill="#A9C4D4"/>
+<rect x="337.1" y="1232.6" width="7.0" height="5.8" fill="#3D5878" rx="1.0"/>
+<line x1="347.0" y1="1216.0" x2="347.0" y2="1226.2" stroke="#D86000" stroke-width="2.3" stroke-linecap="butt"/>
+<rect x="344.5" y="1226.2" width="5.1" height="1.9" fill="#0E1F32"/></g>
+<rect x="324" y="1216" width="32" height="32" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="340.0" y="1266.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="9.8" baseline-shift="sub">2</tspan></text>
+<text xml:space="preserve" x="340.0" y="1290.0" font-size="15" fill="#D86000" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="10.5" baseline-shift="sub">2</tspan></text>
+<rect x="466.0" y="1164.0" width="12.0" height="28.0" fill="#5B87A1" rx="2.0"/>
+<rect x="480.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="487.5" y="1164.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="494.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="501.5" y="1164.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="480.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="487.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="494.5" y="1171.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="501.5" y="1171.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="480.5" y="1178.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="487.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="494.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="501.5" y="1178.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="480.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="487.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<rect x="494.5" y="1185.5" width="6.0" height="6.0" fill="#2F5F7E" rx="1.0"/>
+<rect x="501.5" y="1185.5" width="6.0" height="6.0" fill="#EEF5FA" rx="1.0" stroke="#A9C4D4" stroke-width="0.6"/>
+<text xml:space="preserve" x="486.0" y="1156.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">h</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan><tspan font-style="normal">, </tspan><tspan font-weight="700" font-style="normal">z</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan></text>
+<line x1="492.0" y1="1196.0" x2="492.0" y2="1207.0" stroke="#3D5878" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="492.0,1212.0 489.5,1206.0 494.5,1206.0" fill="#3D5878"/>
+<g opacity="0.65"><rect x="476.0" y="1216.0" width="32.0" height="32.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="476.0" y="1238.4" width="32.0" height="9.6" fill="#A9C4D4"/>
+<rect x="491.7" y="1232.6" width="7.0" height="5.8" fill="#3D5878" rx="1.0"/>
+<line x1="499.0" y1="1216.0" x2="499.0" y2="1226.2" stroke="#D86000" stroke-width="2.3" stroke-linecap="butt"/>
+<rect x="496.5" y="1226.2" width="5.1" height="1.9" fill="#0E1F32"/></g>
+<rect x="476" y="1216" width="32" height="32" rx="2" fill="none" stroke="#3D5878" stroke-width="1.5" stroke-dasharray="4 2.5"/>
+<text xml:space="preserve" x="492.0" y="1266.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">ô</tspan><tspan font-size="9.8" baseline-shift="sub">16</tspan></text>
+<text xml:space="preserve" x="492.0" y="1290.0" font-size="15" fill="#D86000" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<text xml:space="preserve" x="492.0" y="1312.0" font-size="15" fill="#D86000" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-style="normal">+ </tspan><tspan>v</tspan><tspan font-size="10.5" baseline-shift="sub">16</tspan></text>
+<line x1="116.0" y1="1178.0" x2="180.0" y2="1178.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="186.0,1178.0 179.0,1180.9 179.0,1175.1" fill="#3D5878"/>
+<text xml:space="preserve" x="151.0" y="1172.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="9.8" baseline-shift="sub">0</tspan></text>
+<line x1="114.0" y1="1232.0" x2="147.9" y2="1188.0" stroke="#2F5F7E" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="151.0,1184.0 149.3,1190.3 145.3,1187.2" fill="#2F5F7E"/>
+<text x="140.5" y="1212.0" font-size="12" fill="#2F5F7E" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM</text>
+<line x1="238.0" y1="1178.0" x2="302.0" y2="1178.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt"/>
+<polygon points="308.0,1178.0 301.0,1180.9 301.0,1175.1" fill="#3D5878"/>
+<text xml:space="preserve" x="273.0" y="1172.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="9.8" baseline-shift="sub">1</tspan></text>
+<line x1="236.0" y1="1232.0" x2="269.9" y2="1188.0" stroke="#2F5F7E" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="273.0,1184.0 271.3,1190.3 267.3,1187.2" fill="#2F5F7E"/>
+<text x="262.5" y="1212.0" font-size="12" fill="#2F5F7E" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM</text>
+<line x1="360.0" y1="1178.0" x2="454.0" y2="1178.0" stroke="#3D5878" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="4 3"/>
+<polygon points="460.0,1178.0 453.0,1180.9 453.0,1175.1" fill="#3D5878"/>
+<text xml:space="preserve" x="410.0" y="1172.0" font-size="14" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="9.8" baseline-shift="sub">15</tspan></text>
+<line x1="358.0" y1="1232.0" x2="406.3" y2="1187.4" stroke="#2F5F7E" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="410.0,1184.0 407.3,1189.9 403.9,1186.2" fill="#2F5F7E"/>
+<text x="392.0" y="1212.0" font-size="12" fill="#2F5F7E" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM</text>
+<text xml:space="preserve" x="280.0" y="1338.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>V</tspan><tspan font-size="11.2" baseline-shift="sub">t</tspan><tspan font-style="normal"> = </tspan><tspan font-weight="700" font-style="normal">r</tspan><tspan font-size="11.2" baseline-shift="sub">t+1</tspan><tspan font-style="normal"> + γ((1 − λ)</tspan><tspan>v</tspan><tspan font-size="11.2" baseline-shift="sub">t+1</tspan><tspan font-style="normal"> + λ</tspan><tspan>V</tspan><tspan font-size="11.2" baseline-shift="sub">t+1</tspan><tspan font-style="normal">)</tspan><tspan font-style="normal">,   </tspan><tspan>V</tspan><tspan font-size="11.2" baseline-shift="sub">16</tspan><tspan font-style="normal"> = </tspan><tspan>v</tspan><tspan font-size="11.2" baseline-shift="sub">16</tspan></text>
+<text x="30.0" y="1362.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">REINFORCE (DreamerV2): V − v weighs log π(a); no gradients in the world model.</text>
+<text x="30.0" y="1382.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">After t = 0 each z is the prior's; the sim runs this mini-FM, one action per step.</text>
+</svg>

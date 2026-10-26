@@ -1,0 +1,51 @@
+[project]
+name = "mini-wm"
+version = "0.1.0"
+description = "Small world models for robots, in a few readable files: mini-FM, mini-WAM, mini-Dreamer, mini-JEPA, mini-TD-MPC2 and mini-VLAPS on LIBERO-90"
+readme = "README.md"
+requires-python = "==3.10.*"
+dependencies = [
+    "torch==2.5.1",
+    "numpy==1.26.4",
+    "einops==0.4.1",
+    "hydra-core==1.2.0",
+    "omegaconf==2.3.0",
+    ## the LeRobot datasets on the Hugging Face Hub, read without the lerobot library
+    "datasets==4.1.1",
+    "huggingface-hub==0.35.0",
+    "pandas==2.2.2",
+    "pyarrow==21.0.0",
+    "av==15.1.0",
+    "opencv-python==4.11.0.86",
+    "imageio==2.37.0",
+    "imageio-ffmpeg==0.6.0",
+    "pyyaml==6.0.2",
+    ## logging
+    "wandb>=0.13.1",
+    "tensorboard==2.15.2",
+    "nvidia-ml-py==13.580.82", ## pynvml, for torch.cuda.utilization()
+    "setuptools<81", ## tensorboard still imports pkg_resources, which setuptools 81 removed
+    ## the LIBERO sim (a clone next to this repo, see [tool.uv.sources]) and its dependencies
+    "libero",
+    "robosuite==1.4.0",
+    "mujoco==3.4.0",
+    "bddl==1.0.1",
+    "easydict==1.9",
+    "gym==0.25.2",
+    "future==0.18.2",
+    "cloudpickle==3.1.2",
+    "termcolor==3.1.0",
+    "h5py==3.14.0",
+    ## the tutorial notebook
+    "ipykernel==7.3.0",
+    "matplotlib==3.5.3",
+    "matplotlib-inline==0.1.7", ## 0.2 calls rcParams._get, which matplotlib 3.5 lacks: plots in the notebook fail
+    "pillow==9.4.0",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv.sources]
+## git clone https://github.com/montrealrobotics/LIBERO.git ../LIBERO (its assets are installed from the clone)
+libero = { path = "../LIBERO", editable = true }

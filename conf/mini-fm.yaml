@@ -1,0 +1,124 @@
+defaults:
+  - sim: default ## the sim evals, conf/sim/default.yaml
+  - _self_
+  - dataset: default ## the robot data, conf/dataset/default.yaml; after _self_, so a dataset config can also set image_block_size
+
+experiment:
+  name: mini_fm ## the wandb group of the run (each run is <name>_seed<r_seed>): say what the experiment changes
+  project: mini-wm ## the wandb project every model (mini-FM, mini-WAM, mini-Dreamer, RL, ...) logs to, with testing=false
+  entity: null ## your wandb team or user name; null uses your default
+
+## Data Processsing Hyperparameters
+max_block_size: 16 ## Will be overidden by code
+image_block_size: 128 ## Number of image tokens: (image_shape / patch_size)^2 per camera, times the dataset.cameras (2 by default: 128), or 0 to train on text only
+vocab_size: 32 ## Will be overidden by code
+patch_size: 8
+action_bins: 90 ## Will be overidden by code (size of chars_list)
+action_dim: 7 ## Size of the continuous action head; overridden by code when robot data is used
+pose_dim: 7 ## Size of the robot pose (the arm's joint positions); overridden by code when robot data is used
+image_shape: [64, 64, 3]
+image_bounds: [-1.0, 1.0] ## [low, high] the pixels are scaled to, e.g. [0, 1] or [-1, 1] 
+r_seed: 1337
+
+trainer: pretrain ## what mini_train.py runs: pretrain (this file, mini-wam.yaml), rl (RL fine-tuning, mini-fm-rl.yaml) or vlaps (search, no training, mini-vlaps.yaml)
+
+model:
+  type: fm ## fm (the transformer in mini_fm.py), small_convnet (SmallConvNetFM in mini_fm.py: three convolutions) or
+    ## wam (the world action model in mini_wam.py, robot data only: conf/mini-wam.yaml) or dreamer (the forward
+    ## dynamics model in mini_dreamer.py, robot data only: conf/mini-dreamer.yaml) or jepa (the latent world model in
+    ## mini_jepa.py, robot data only: conf/mini-jepa.yaml) or tdmpc2 (TD-MPC2 in mini_tdmpc2.py, its own policy, robot data
+    ## only: conf/mini-tdmpc2.yaml)
+  action_head: huber ## huber (the default: regress the action chunk, squared error within 1 of the target and L1 beyond; fm only, WAM uses mse), mse, l1 (fm only: regress it with an L1 loss, as OpenVLA-OFT) or diffusion (flow matching with an action expert that samples it, one token per action, as in π0)
+  token_per_action: false ## fm only: end the sequence with one class token per action of the chunk (policy.action_stacking), each
+    ## decoded by the same linear layer (with the diffusion head: its action expert is then causal too, action i sees the action tokens up to i), instead of one class token that decodes the whole chunk. Its mask is
+    ## strictly causal: the pose and image tokens attend only to each other, the goal text and action tokens causally
+  diffusion_steps: 10 ## the diffusion head's Euler steps in every sampled action chunk, as π0 (training samples τ continuously); also WAM's frame diffusion's noise steps
+  frame_size: 32 ## wam, dreamer and jepa only: the future frames are predicted at frame_size x frame_size pixels (downsampled from image_shape)
+  frame_loss_weight: 1.0 ## wam, dreamer and jepa only: weight of the frame diffusion's loss (Dreamer's frame and KL losses, JEPA's embedding loss), next to the action head's (weighted by mse_head_weights)
+  frame_patch_size: 8 ## wam and jepa only: the future frames' patch size (one token per patch, frame_size / frame_patch_size squared per frame)
+  frame_adaln: false ## wam only: condition the frame tokens on the noise step in every block by adaLN-Zero (as DiT), not only at the input
+  frame_image_interval: 5000 ## wam, dreamer and jepa only: steps between logged grids of predicted frames (predicted_frames/<step>.png, TensorBoard, wandb), and the last step
+  latent: categorical ## dreamer only: the world model's latent z, categorical (DreamerV3: stoch_dim one-hot
+    ## variables of discrete_dim classes) or gaussian (DreamerV1: a stoch_dim Gaussian)
+  stoch_dim: 32 ## dreamer only: z's variables (categorical) or dimensions (gaussian)
+  discrete_dim: 32 ## dreamer only: the classes of each of z's categorical variables
+  deter_dim: 512 ## dreamer only: size of the RSSM's deterministic state h (the GRU's)
+  hidden_dim: 512 ## dreamer only: hidden size of the prior and posterior networks
+  kl_dyn: 1.0 ## dreamer only: weight of DreamerV3's dynamics loss, KL(sg(posterior) || prior), which trains the prior 
+  kl_rep: 0.1 ## dreamer only: weight of its representation loss, KL(posterior || sg(prior)), which trains the posterior 
+  kl_free_nats: 1.0 ## dreamer only: free bits: neither KL is pulled below this many nats per step
+  return_discount: 0.99 ## dreamer only: the critic's discount per action (20 Hz: a horizon of about 100 actions, LIBERO's episodes are 100-300)
+  return_lambda: 0.95 ## dreamer only: the lambda of the lambda-returns of the critic (on real sequences) and of the actor (in imagination), as DreamerV2 and V3
+  critic_tau: 0.02 ## dreamer only: the slow critic's moving average, as DreamerV3
+  imagine_horizon: 16 ## dreamer only: steps of mini-FM's rollouts in the world model, scored by their predicted rewards and the critic's value at the end
+  policy_net: fm ## dreamer only: the network of its policy (mini-FM): fm (the transformer) or small_convnet (three
+    ## convolutions), both from mini_fm.py; the small one is cheaper to run in imagination
+  actor_coef: 1.0 ## dreamer only: weight of mini-FM's REINFORCE loss in imagination (DreamerV2's actor loss), next to its imitation loss; 0 turns imagination off
+  actor_std: 0.15 ## dreamer only: std of the Gaussian around mini-FM's action that imagination samples from, in whitened action units (as mini-fm-rl.yaml's action_std)
+  sequence_steps: 16 ## dreamer and jepa only: the world model trains on the current frame and the frames after the next sequence_steps
+    ## actions, so its GRU carries a longer history; the logged grid predicts them all
+  frame_skip: 4 ## jepa only: actions per timestep (4 at 20 Hz: 5 Hz, as RoboJEPA), so it predicts sequence_steps / frame_skip frames ahead
+  encoder_blocks: 4 ## jepa only: transformer blocks of its encoder, a ViT over one frame's patches
+  predictor_blocks: 4 ## jepa only: transformer blocks of its predictor
+  ema: 0.996 ## jepa only: the target encoder's moving average: target = ema * target + (1 - ema) * encoder after each step
+  policy: cem ## jepa only: how it acts. cem: plans with the cross-entropy method towards a goal image, as RoboJEPA; fm: mini-FM, trained next to it
+  cem_samples: 256 ## jepa only (cem): action sequences imagined per CEM iteration
+  cem_elites: 32 ## jepa only (cem): the nearest to the goal, which the next iteration's Gaussian is refit to
+  cem_iterations: 5 ## jepa only (cem)
+  ## tdmpc2 only: TD-MPC2's settings, its defaults (tdmpc2/config.yaml) at its 5M size. One step is an action chunk (policy.action_stacking)
+  horizon: 3 ## steps of each training sequence and of each plan
+  latent_dim: 512 ## the CNN's output (32 channels of 4 x 4)
+  mlp_dim: 512 ## hidden size of the dynamics, reward, policy and Q MLPs
+  task_dim: 96 ## size of the task embedding (from the goal text)
+  num_q: 5 ## Q-functions in the ensemble
+  dropout: 0.01 ## after the first layer of each Q-function
+  num_bins: 101 ## bins of the two-hot rewards and Q-values, over symlog values vmin to vmax
+  vmin: -10
+  vmax: 10
+  discount: 0.95 ## per step: TD-MPC2's heuristic, (L/5 - 1) / (L/5) within [0.95, 0.995], gives 0.95 for LIBERO's 20-60 chunks per episode
+  rho: 0.5 ## the loss of step t of the horizon is weighted by rho^t
+  consistency_coef: 20
+  reward_coef: 0.1
+  value_coef: 0.1
+  entropy_coef: 1e-4
+  tau: 0.01 ## the target Q-functions' moving average (and the Q scale's)
+  log_std_min: -10
+  log_std_max: 2
+  action_limit: 3.0 ## the whitened actions are divided by this (and clipped) into TD-MPC2's [-1, 1]
+  mpc: true ## act by planning with MPPI (false: the policy prior's mean)
+  iterations: 6 ## MPPI's refits (plus 2 for actions of 20 or more dimensions, as TD-MPC2)
+  num_samples: 512 ## action sequences per refit
+  num_elites: 64 ## the best of them, which the Gaussian is refit to
+  num_pi_trajs: 24 ## of the samples, sequences from the policy prior
+  min_std: 0.05
+  max_std: 2
+  temperature: 0.5 ## of the elites' weights, exp(temperature * value)
+
+## Model training Hyperparameters
+batch_size: 512 # how many independent sequences will we process in parallel (about as many samples/s as 256 or 1024)
+max_iters: 25000 ## about 15-25 min on one GPU, enough to compare settings; longer runs use 100000
+eval_interval: 500
+learning_rate: 5e-4
+eval_iters: 200
+n_embd: 256
+n_head: 8 ## head size 32 runs 1.4x faster on the GPU than 16 heads, with no change in val or sim
+n_blocks: 4
+dropout: 0.2
+augment_shift: 4 ## training images are shifted randomly by up to this many pixels (random crop of the edge-padded image, as DrQ); 0 turns it off
+augment_color: 0.0 ## strength of the training images' colour jitter (mini_train.color_jitter): 1 is brightness, contrast and saturation
+  ## x0.7-1.3 and a colour cast x0.9-1.1, for a colour gap between the data and the sim; 0 turns it off
+mse_head_weights: 3.0 # weight of the action head's loss (mse or diffusion) against the token head's CE
+
+## Computation Backend settings
+device: "cuda"
+precision: bf16 ## fp32, tf32 (fp32 with TF32 matmuls), bf16 (autocast, Ampere+) or fp16 (autocast + GradScaler)
+testing: true ## true turns off wandb logging (TensorBoard still logs)
+tensorboard: true ## Log train/val losses of each head to ./tensorboard in the hydra run dir
+gradient_accumulation_steps: 1
+
+
+
+policy: ## read by sim_eval.py
+  obs_stacking: 1
+  action_stacking: 5 ## action chunk: the model predicts the next 5 actions and the sim executes all 5 before querying it again
+  use_pose_data: false ## also give the model the robot's pose: its 7 arm joint positions (data_loading.POSE_KEY)

@@ -1,0 +1,19 @@
+## mini-JEPA (mini_jepa.py): mini-FM's settings (mini-fm.yaml), with a latent world model after RoboJEPA, its own network,
+## that predicts the embeddings of the frames after the next model.sequence_steps actions (model.frame_skip,
+## model.encoder_blocks, model.predictor_blocks, model.ema), on robot data only. It acts by planning towards a goal
+## image with CEM (model.policy=cem, as RoboJEPA) or with mini-FM, trained next to it (model.policy=fm).
+##   uv run mini_train.py --config-name mini-jepa
+defaults:
+  - mini-fm
+  - _self_
+
+experiment:
+  name: mini_jepa
+
+image_block_size: 64 ## one camera, as mini-dreamer.yaml: the world model predicts one camera's frames
+model:
+  type: jepa
+  frame_size: 64 ## the whole image (64 patch tokens of 8 x 8 pixels per frame); WAM and Dreamer predict pixels at 32
+
+dataset:
+  cameras: null ## one camera per dataset (robot_image_key)

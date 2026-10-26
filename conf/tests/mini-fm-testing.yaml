@@ -1,0 +1,17 @@
+# @package _global_
+## A short run of mini-fm.yaml for smoke tests and quick checks: python mini_train.py --config-name tests/mini-fm-testing
+## 300 steps on libero_spatial robot data only, then one short in-process sim eval of one task at the last step.
+defaults:
+  - /mini-fm
+  - override /sim: testing ## the short sim eval, conf/sim/testing.yaml
+  - _self_
+
+testing: true
+max_iters: 300
+eval_interval: 100
+eval_iters: 5
+
+dataset:
+  robot_dataset_name: [gberseth/libero_spatial_no_noops_lerobot]
+  robot_image_key: observation.images.wrist_image ## one camera for all, as the tests change the datasets
+  robot_dataset_weights: null ## equal, as the tests change the datasets

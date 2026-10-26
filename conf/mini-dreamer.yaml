@@ -1,0 +1,20 @@
+## mini-Dreamer (mini_dreamer.py): mini-FM's settings (mini-fm.yaml), with a forward dynamics model p(s'|s, a)
+## as DreamerV3's world model, its own network, that predicts the frames after the next
+## model.sequence_steps actions (model.latent: categorical or gaussian, model.stoch_dim, ...), on robot data only.
+## mini-FM is the policy.
+##   uv run mini_train.py --config-name mini-dreamer
+defaults:
+  - mini-fm
+  - _self_
+
+experiment:
+  name: mini_dreamer
+
+image_block_size: 64 ## one camera, as mini-wam.yaml: the world model predicts one camera's frames
+model:
+  type: dreamer
+
+dataset:
+  cameras: null ## one camera per dataset (robot_image_key)
+policy:
+  action_stacking: 1 ## mini-FM predicts one action and the sim queries it every step, as Dreamer's actor acts

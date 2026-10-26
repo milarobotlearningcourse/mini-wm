@@ -1,0 +1,29 @@
+## The robot data the models train on (under dataset. in the run's config): LIBERO-90, 90 short tasks for a Franka
+## Panda in kitchen, living room and study scenes (3,933 demonstrations at 20 Hz), as a LeRobot v3 dataset on the
+## Hugging Face Hub (parquet + MP4 files). The first run downloads it (about 600 MB). Another LIBERO suite works the same
+## way, e.g. dataset.robot_dataset_name=[gberseth/libero_spatial_no_noops_lerobot] (as the tests do).
+robot_dataset_name: ## one name or a list
+  - gberseth/libero_90_no_noops_lerobot
+robot_dataset_weights: null ## the probability of sampling from each robot dataset above, in the same order, summing to 1; null means equal.
+  ## A dataset's share is split evenly over its episodes, so it doesn't depend on its size.
+robot_image_key: observation.images.wrist_image ## the camera of each robot dataset above, in the same order (or one key for all):
+  ## observation.images.wrist_image (wrist) or observation.images.image (agent view). Each sim eval renders the camera of its dataset.
+cameras: [observation.images.wrist_image, observation.images.image] ## fm only: the cameras every robot image shows side
+  ## by side, left to right, instead of robot_image_key's one; null for one camera (then image_block_size 64: the world
+  ## models take one)
+robot_frames_per_episode: 4 ## Robot samples taken from each sampled trajectory (1 = one frame per trajectory); fewer video opens, less batch diversity
+action_stats: null ## {robot dataset: {mean, std}}: each dataset's per-dimension action mean and std, which its actions are whitened with; computed by code from the robot train split
+action_mean: null ## Per-dimension action mean and std over all the robot data (the train split), for sim task sets no dataset was trained on
+action_std: null
+pose_mean: null ## Per-dimension robot pose mean and std for whitening; computed by code from the robot train split
+pose_std: null
+chars_list:  [' ', ',', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+ '!', '?', '"', "'", '(', ')', '-', '_', ':', ';',
+ '@', '#', '$', '%', '&', '*', '+', '=', '<', '>', '/', '\\', '|', '~', '`',
+ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+cache: cpu ## cpu: decode every image once at startup and keep the dataset in RAM (about 14 GB for LIBERO-90 with two
+  ## cameras); cuda: the same on the GPU; none: decode per batch in DataLoader workers
+cache_episodes: 100000 ## Robot trajectory slots in the cache; with fewer than the dataset has (to save RAM), a background process keeps swapping episodes in from disk
+cache_swap_workers: 1 ## Processes decoding the episodes swapped into the robot cache (at the lowest OS priority)
+num_workers: 4 ## DataLoader workers that decode and resize images on the fly (cache=none); the cache is filled by one process per CPU

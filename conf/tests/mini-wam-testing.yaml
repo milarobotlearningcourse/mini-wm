@@ -1,0 +1,11 @@
+# @package _global_
+## The short run of tests/mini-fm-testing.yaml with mini-WAM: python mini_train.py --config-name tests/mini-wam-testing
+defaults:
+  - /tests/mini-fm-testing
+  - _self_
+
+image_block_size: 64 ## one camera, as mini-wam.yaml
+model:
+  type: wam
+dataset:
+  cameras: null

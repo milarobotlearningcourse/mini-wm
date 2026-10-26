@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="594" viewBox="0 0 560 594">
+<rect x="0.0" y="0.0" width="560.0" height="594.0" fill="#F5FAFD"/>
+<text x="16.0" y="34.0" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">A mini-Dreamer training sample</text>
+<text x="16.0" y="56.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">RobotCache.sample with future frames: frame t, and what follows it.</text>
+<rect x="16.0" y="74.0" width="528.0" height="298.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="96.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">MINI-DREAMER'S BATCH</text>
+<text x="30.0" y="118.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">The next 16 actions, the frame and reward after each</text>
+<text x="530.0" y="118.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">20 Hz</text>
+<rect x="40.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#A9C4D4" stroke-width="1.0"/>
+<rect x="58.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#A9C4D4" stroke-width="1.0"/>
+<rect x="76.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#A9C4D4" stroke-width="1.0"/>
+<rect x="92.5" y="150.5" width="17.0" height="17.0" fill="#EEF5FA" rx="2.5" stroke="#D86000" stroke-width="2.2"/>
+<rect x="112.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="130.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="148.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="166.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="184.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="202.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="220.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="238.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="256.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="274.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="292.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="310.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="328.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="346.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="364.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<rect x="382.0" y="152.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<line x1="34.0" y1="144.0" x2="468.0" y2="144.0" stroke="#A9C4D4" stroke-width="1.0" stroke-linecap="butt"/>
+<polygon points="474.0,144.0 467.0,146.9 467.0,141.1" fill="#A9C4D4"/>
+<text x="472.0" y="138.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">time</text>
+<text x="101.0" y="138.0" font-size="13" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">t</text>
+<text x="191.0" y="138.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">t+5</text>
+<text x="281.0" y="138.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">t+10</text>
+<text x="371.0" y="138.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">t+15</text>
+<rect x="97.0" y="184.0" width="8.0" height="12.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="115.0" y="178.0" width="8.0" height="18.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="133.0" y="187.0" width="8.0" height="9.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="151.0" y="176.0" width="8.0" height="20.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="169.0" y="182.0" width="8.0" height="14.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="187.0" y="180.0" width="8.0" height="16.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="205.0" y="188.0" width="8.0" height="8.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="223.0" y="183.0" width="8.0" height="13.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="241.0" y="184.0" width="8.0" height="12.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="259.0" y="178.0" width="8.0" height="18.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="277.0" y="187.0" width="8.0" height="9.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="295.0" y="176.0" width="8.0" height="20.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="313.0" y="182.0" width="8.0" height="14.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="331.0" y="180.0" width="8.0" height="16.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="349.0" y="188.0" width="8.0" height="8.0" fill="#2F5F7E" rx="1.2"/>
+<rect x="367.0" y="183.0" width="8.0" height="13.0" fill="#2F5F7E" rx="1.2"/>
+<path d="M95,198 L95,204 L377,204 L377,198" fill="none" stroke="#3D5878" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="119.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="137.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="155.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="173.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="191.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="209.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="227.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="245.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="263.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="281.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="299.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="317.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="335.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="353.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="371.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="389.0" y="224.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<text x="408.0" y="224.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">reward</text>
+<text xml:space="preserve" x="408.0" y="163.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">t+1</tspan><tspan font-style="normal"> … </tspan><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">t+16</tspan></text>
+<text xml:space="preserve" x="408.0" y="194.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">t</tspan><tspan font-style="normal"> … </tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">t+15</tspan></text>
+<text x="30.0" y="260.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Added to the behaviour-cloning batch (one camera, X_images 64 x 64 x 3):</text>
+<text x="40.0" y="284.0" font-size="13.5" fill="#3D5878" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">frames</text>
+<text x="188.0" y="284.0" font-size="13.5" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">(B, 64, 64, 16 x 3): predicted at 32 x 32</text>
+<text x="40.0" y="306.0" font-size="13.5" fill="#3D5878" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">sequence_actions</text>
+<text x="188.0" y="306.0" font-size="13.5" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">(B, 16 x 7): the RSSM steps once per action</text>
+<text x="40.0" y="328.0" font-size="13.5" fill="#3D5878" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">rewards</text>
+<text x="188.0" y="328.0" font-size="13.5" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">(B, 16): for the reward head and the critic</text>
+<text x="40.0" y="350.0" font-size="13.5" fill="#3D5878" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">actions</text>
+<text x="188.0" y="350.0" font-size="13.5" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">(B, 1 x 7): mini-FM's chunk is 1 action</text>
+<rect x="16.0" y="388.0" width="528.0" height="190.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="410.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">PAST THE END</text>
+<text x="30.0" y="432.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">The reward, near a demo's last frame</text>
+<rect x="38.5" y="470.5" width="17.0" height="17.0" fill="#EEF5FA" rx="2.5" stroke="#D86000" stroke-width="2.2"/>
+<rect x="58.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="65.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="76.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="83.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="94.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="101.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="112.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="119.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="130.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="137.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="148.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="155.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="166.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="173.0" y="506.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">0</text>
+<rect x="184.0" y="472.0" width="14.0" height="14.0" fill="#EEF5FA" rx="2.0" stroke="#2F5F7E" stroke-width="1.4"/>
+<text x="191.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="202.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="209.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="220.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="227.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="238.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="245.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="256.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="263.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="274.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="281.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="292.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="299.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<rect x="310.0" y="472.0" width="14" height="14" rx="2" fill="#EEF5FA" stroke="#2F5F7E" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+<text x="317.0" y="506.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Courier New', monospace">1</text>
+<text x="47.0" y="462.0" font-size="13" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">t</text>
+<text x="191.0" y="462.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">last</text>
+<text x="210.0" y="462.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">repeated past the end</text>
+<line x1="200.0" y1="468.0" x2="200.0" y2="512.0" stroke="#A9C4D4" stroke-width="1.0" stroke-linecap="butt" stroke-dasharray="3 2"/>
+<text x="332.0" y="506.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif" font-style="italic">reward</text>
+<text x="30.0" y="540.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">1 after each action from which the last frame (the goal) is reached;</text>
+<text x="30.0" y="559.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">past the end the last action repeats too.</text>
+</svg>

@@ -1,0 +1,18 @@
+## mini-WAM (mini_wam.py): mini-FM's settings (mini-fm.yaml) with the world action model, which also predicts the next
+## policy.action_stacking frames (model.frame_size, model.frame_loss_weight), on robot data only.
+##   uv run mini_train.py --config-name mini-wam
+defaults:
+  - mini-fm
+  - _self_
+
+experiment:
+  name: mini_wam
+
+image_block_size: 64 ## one camera: WAM doesn't take mini-FM's two (dataset.cameras)
+model:
+  type: wam
+  action_head: mse ## mse or diffusion (mini-FM's default, huber, isn't in WAM)
+  diffusion_steps: 20 ## the frame diffusion's noise steps (and the diffusion action head's), as before mini-FM's went to 10
+
+dataset:
+  cameras: null ## one camera per dataset (robot_image_key)

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="996" viewBox="0 0 560 996">
+<rect x="0.0" y="0.0" width="560.0" height="996.0" fill="#F5FAFD"/>
+<text x="16.0" y="34.0" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">RL fine-tuning of mini-FM in LIBERO-90</text>
+<text x="16.0" y="56.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">GRPO or PPO on task success, starting from the pre-trained policy.</text>
+<rect x="16.0" y="74.0" width="528.0" height="280.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="96.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">THE LOOP</text>
+<text x="30.0" y="118.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Fine-tune on task success</text>
+<rect x="34.0" y="136.0" width="206.0" height="84.0" fill="#FFFFFF" rx="6.0" stroke="#2F5F7E" stroke-width="1.6"/>
+<text x="137.0" y="157.5" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Policy</text>
+<text x="137.0" y="174.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">mini-FM from miniFM_best.pth,</text>
+<text x="137.0" y="191.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">Gaussian around its chunk,</text>
+<text x="137.0" y="208.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">std 0.15 (whitened units)</text>
+<rect x="320.0" y="136.0" width="206.0" height="84.0" fill="#FFFFFF" rx="6.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="423.0" y="157.5" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Roll out in LIBERO-90</text>
+<text x="423.0" y="174.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">a pool of envs kept open;</text>
+<text x="423.0" y="191.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">10 tasks × 7 groups, each</text>
+<text x="423.0" y="208.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">8 rollouts from one init state</text>
+<rect x="320.0" y="252.0" width="206.0" height="84.0" fill="#FFFFFF" rx="6.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="423.0" y="282.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Advantage per rollout</text>
+<text x="423.0" y="299.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">GRPO: against its group,</text>
+<text x="423.0" y="316.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">or PPO: GAE, value head</text>
+<rect x="34.0" y="252.0" width="206.0" height="84.0" fill="#FFFFFF" rx="6.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="137.0" y="282.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">PPO clipped update</text>
+<text x="137.0" y="299.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">per action value,</text>
+<text x="137.0" y="316.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">clip to [1 − 0.2, 1 + 0.28]</text>
+<line x1="240.0" y1="178.0" x2="312.0" y2="178.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="318.0,178.0 310.0,181.4 310.0,174.6" fill="#3D5878"/>
+<text x="280.0" y="170.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">chunks</text>
+<line x1="423.0" y1="220.0" x2="423.0" y2="244.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="423.0,250.0 419.6,242.0 426.4,242.0" fill="#3D5878"/>
+<text x="431.0" y="241.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">success 0 / 1</text>
+<line x1="320.0" y1="294.0" x2="248.0" y2="294.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="242.0,294.0 250.0,290.6 250.0,297.4" fill="#3D5878"/>
+<line x1="137.0" y1="252.0" x2="137.0" y2="228.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="137.0,222.0 140.4,230.0 133.6,230.0" fill="#3D5878"/>
+<text x="145.0" y="241.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">updated policy</text>
+<text xml:space="preserve" x="530.0" y="118.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="end" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>π</tspan><tspan font-size="10.5" baseline-shift="sub">θ</tspan><tspan font-style="normal">(</tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-style="normal"> | </tspan><tspan font-weight="700" font-style="normal">o</tspan><tspan font-style="normal">, g) = N(</tspan><tspan font-weight="700" font-style="normal">μ</tspan><tspan font-size="10.5" baseline-shift="sub">θ</tspan><tspan font-style="normal">, 0.15</tspan><tspan font-size="10.5" baseline-shift="super">2</tspan><tspan font-style="normal">)</tspan></text>
+<rect x="16.0" y="366.0" width="528.0" height="312.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="388.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">ADVANTAGE</text>
+<text x="30.0" y="410.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Which rollouts did better than their group?</text>
+<text x="32.0" y="442.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">GRPO</text>
+<text x="32.0" y="462.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">8 rollouts from one</text>
+<text x="32.0" y="479.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">init state; no value net</text>
+<text xml:space="preserve" x="32.0" y="512.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>A</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> = </tspan><tspan font-style="normal">(</tspan><tspan>s</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> − mean </tspan><tspan>s</tspan><tspan font-style="normal">)</tspan></text>
+<text xml:space="preserve" x="52.0" y="534.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-style="normal">/ std </tspan><tspan>s</tspan></text>
+<line x1="202.0" y1="530.0" x2="522.0" y2="530.0" stroke="#A9C4D4" stroke-width="1.2" stroke-linecap="butt"/>
+<text x="198.0" y="535.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">0</text>
+<circle cx="222.0" cy="460.0" r="12.0" fill="#2F5F7E"/>
+<path d="M217.0,460.0 L220.5,464.0 L227.5,455.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="213.0" y="511.2" width="18.0" height="18.8" fill="#2F5F7E" rx="1.5"/>
+<text x="222.0" y="506.2" font-size="12.5" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+0.72</text>
+<circle cx="262.0" cy="460.0" r="12.0" fill="#2F5F7E"/>
+<path d="M257.0,460.0 L260.5,464.0 L267.5,455.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="253.0" y="511.2" width="18.0" height="18.8" fill="#2F5F7E" rx="1.5"/>
+<text x="262.0" y="506.2" font-size="12.5" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+0.72</text>
+<circle cx="302.0" cy="460.0" r="12.0" fill="#7A3020"/>
+<path d="M297.5,455.5 L306.5,464.5 M306.5,455.5 L297.5,464.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="293.0" y="530.0" width="18.0" height="31.4" fill="#7A3020" rx="1.5"/>
+<text x="302.0" y="576.4" font-size="12.5" fill="#7A3020" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">−1.21</text>
+<circle cx="342.0" cy="460.0" r="12.0" fill="#2F5F7E"/>
+<path d="M337.0,460.0 L340.5,464.0 L347.5,455.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="333.0" y="511.2" width="18.0" height="18.8" fill="#2F5F7E" rx="1.5"/>
+<text x="342.0" y="506.2" font-size="12.5" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+0.72</text>
+<circle cx="382.0" cy="460.0" r="12.0" fill="#7A3020"/>
+<path d="M377.5,455.5 L386.5,464.5 M386.5,455.5 L377.5,464.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="373.0" y="530.0" width="18.0" height="31.4" fill="#7A3020" rx="1.5"/>
+<text x="382.0" y="576.4" font-size="12.5" fill="#7A3020" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">−1.21</text>
+<circle cx="422.0" cy="460.0" r="12.0" fill="#7A3020"/>
+<path d="M417.5,455.5 L426.5,464.5 M426.5,455.5 L417.5,464.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="413.0" y="530.0" width="18.0" height="31.4" fill="#7A3020" rx="1.5"/>
+<text x="422.0" y="576.4" font-size="12.5" fill="#7A3020" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">−1.21</text>
+<circle cx="462.0" cy="460.0" r="12.0" fill="#2F5F7E"/>
+<path d="M457.0,460.0 L460.5,464.0 L467.5,455.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="453.0" y="511.2" width="18.0" height="18.8" fill="#2F5F7E" rx="1.5"/>
+<text x="462.0" y="506.2" font-size="12.5" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+0.72</text>
+<circle cx="502.0" cy="460.0" r="12.0" fill="#2F5F7E"/>
+<path d="M497.0,460.0 L500.5,464.0 L507.5,455.5" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="493.0" y="511.2" width="18.0" height="18.8" fill="#2F5F7E" rx="1.5"/>
+<text x="502.0" y="506.2" font-size="12.5" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+0.72</text>
+<text x="362.0" y="440.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">5 of 8 succeed: mean 0.62, std 0.52</text>
+<text x="32.0" y="594.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">All ✓ or all ✗: every advantage is 0, and the group is skipped.</text>
+<line x1="32.0" y1="608.0" x2="528.0" y2="608.0" stroke="#A9C4D4" stroke-width="1.0" stroke-linecap="butt"/>
+<text x="32.0" y="628.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">PPO</text>
+<text x="70.0" y="628.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">GAE over the episode's chunks, reward 1 on the chunk that succeeds;</text>
+<text x="70.0" y="646.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">a value head on the policy's detached features (γ = 0.99, λ = 0.95).</text>
+<text xml:space="preserve" x="70.0" y="668.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>A</tspan><tspan font-size="10.5" baseline-shift="sub">t</tspan><tspan font-style="normal"> = Σ</tspan><tspan font-size="10.5" baseline-shift="sub">k</tspan><tspan font-style="normal"> (γλ)</tspan><tspan font-size="10.5" baseline-shift="super">k</tspan><tspan> δ</tspan><tspan font-size="10.5" baseline-shift="sub">t+k</tspan><tspan font-style="normal">,   δ</tspan><tspan font-size="10.5" baseline-shift="sub">t</tspan><tspan font-style="normal"> = </tspan><tspan>r</tspan><tspan font-size="10.5" baseline-shift="sub">t</tspan><tspan font-style="normal"> + γ V(</tspan><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">t+1</tspan><tspan font-style="normal">) − V(</tspan><tspan font-weight="700" font-style="normal">o</tspan><tspan font-size="10.5" baseline-shift="sub">t</tspan><tspan font-style="normal">)</tspan></text>
+<rect x="16.0" y="690.0" width="528.0" height="290.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="712.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">UPDATE</text>
+<text x="30.0" y="734.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">PPO's clipped objective, as RLinf</text>
+<text xml:space="preserve" x="32.0" y="768.0" font-size="16" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-style="normal">max  E [ min( </tspan><tspan>r</tspan><tspan>A</tspan><tspan font-style="normal">,  clip(</tspan><tspan>r</tspan><tspan font-style="normal">, 1 − 0.2, 1 + 0.28) </tspan><tspan>A</tspan><tspan font-style="normal"> ) ]</tspan></text>
+<text xml:space="preserve" x="32.0" y="792.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>r</tspan><tspan font-style="normal"> = π</tspan><tspan font-size="10.5" baseline-shift="sub">θ</tspan><tspan font-style="normal">(</tspan><tspan>a</tspan><tspan font-style="normal">) / π</tspan><tspan font-size="10.5" baseline-shift="sub">old</tspan><tspan font-style="normal">(</tspan><tspan>a</tspan><tspan font-style="normal">)</tspan></text>
+<text x="150.0" y="792.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">per action value (5 actions × 7 dims of the chunk)</text>
+<rect x="126.7" y="832.0" width="160.0" height="22.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="1.2"/>
+<line x1="60.0" y1="854.0" x2="365.0" y2="854.0" stroke="#A9C4D4" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="370.0,854.0 363.0,856.9 363.0,851.1" fill="#A9C4D4"/>
+<text xml:space="preserve" x="376.0" y="859.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>r</tspan></text>
+<line x1="126.7" y1="854.0" x2="126.7" y2="859.0" stroke="#5B6B73" stroke-width="1.2" stroke-linecap="butt"/>
+<text x="126.7" y="873.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">0.8</text>
+<line x1="193.3" y1="854.0" x2="193.3" y2="859.0" stroke="#5B6B73" stroke-width="1.2" stroke-linecap="butt"/>
+<text x="193.3" y="873.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">1</text>
+<line x1="286.7" y1="854.0" x2="286.7" y2="859.0" stroke="#5B6B73" stroke-width="1.2" stroke-linecap="butt"/>
+<text x="286.7" y="873.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">1.28</text>
+<line x1="193.3" y1="832.0" x2="193.3" y2="854.0" stroke="#5B87A1" stroke-width="1.2" stroke-linecap="butt" stroke-dasharray="3 2"/>
+<text x="206.7" y="824.0" font-size="13" fill="#5B87A1" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">clip range</text>
+<text x="32.0" y="900.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">asymmetric</text>
+<text x="118.0" y="900.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">1 + 0.28 vs 1 − 0.2: actions that worked can gain more (DAPO)</text>
+<text x="32.0" y="919.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">weights</text>
+<text x="118.0" y="919.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">each episode counts the same: 1 / its number of chunks</text>
+<text x="32.0" y="938.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">skipped</text>
+<text x="118.0" y="938.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">queries with advantage 0, which carry no signal</text>
+<text x="32.0" y="957.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">optimizer</text>
+<text x="118.0" y="957.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">AdamW, lr 2e-5, 1 epoch over the rollouts, minibatch 1024</text>
+</svg>

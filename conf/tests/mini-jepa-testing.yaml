@@ -1,0 +1,20 @@
+# @package _global_
+## The short run of tests/mini-fm-testing.yaml with mini-JEPA: python mini_train.py --config-name tests/mini-jepa-testing
+defaults:
+  - /tests/mini-fm-testing
+  - _self_
+
+image_block_size: 64 ## one camera, as mini-jepa.yaml
+model:
+  type: jepa
+  frame_size: 64
+dataset:
+  cameras: null
+
+## A few steps: a smoke test checks that training and the
+## sim eval run, not that the loss falls. The long runs show learning.
+max_iters: 10
+eval_interval: 5 ## val losses at steps 0 and 5
+eval_iters: 2
+sim:
+  eval_interval: 9 ## one sim eval, at the last step

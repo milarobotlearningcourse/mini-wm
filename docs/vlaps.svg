@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="836" viewBox="0 0 560 836">
+<rect x="0.0" y="0.0" width="560.0" height="836.0" fill="#F5FAFD"/>
+<text x="16.0" y="34.0" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-VLAPS: search in a world model, then act</text>
+<text x="16.0" y="56.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">After VLAPS's Figure 1: mini-FM steers a tree search in mini-Dreamer's RSSM.</text>
+<rect x="16.0" y="74.0" width="528.0" height="404.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="96.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">SEARCH</text>
+<text x="30.0" y="118.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">A tree over action chunks, in the world model</text>
+<text xml:space="preserve" x="530.0" y="118.0" font-size="15" fill="#5B6B73" font-style="italic" text-anchor="end" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-style="normal">20 simulations</tspan></text>
+<rect x="28.0" y="138.0" width="116.0" height="22.0" fill="#FFFFFF" rx="11.0" stroke="#3D5878" stroke-width="1.2"/>
+<text x="86.0" y="153.5" font-size="12" fill="#3D5878" font-weight="400" text-anchor="middle" font-family="'Courier New', monospace">open the drawer</text>
+<g transform="translate(36.0,172.0) scale(0.8333)">
+<clipPath id="clip_reach_real"><rect width="120" height="84" rx="4"/></clipPath>
+<rect width="120" height="84" rx="4" fill="#EEF5FA"/>
+<g clip-path="url(#clip_reach_real)"><rect x="0.0" y="68.0" width="120.0" height="16.0" fill="#C4CADC"/>
+<line x1="0.0" y1="68.0" x2="120.0" y2="68.0" stroke="#A8B0C0" stroke-width="1.2" stroke-linecap="butt"/>
+<rect x="38.0" y="58.0" width="12.0" height="10.0" fill="#7888A0" rx="1.5"/>
+<rect x="60.0" y="60.0" width="28.0" height="8.0" fill="#3D5878" rx="1.2"/>
+<rect x="64.0" y="48.0" width="20.0" height="13.0" fill="#3D5878" rx="1.5"/>
+<line x1="74" y1="48" x2="92" y2="22" stroke="#D86000" stroke-width="7" stroke-linecap="round"/>
+<line x1="92" y1="22" x2="44" y2="30" stroke="#D86000" stroke-width="5.5" stroke-linecap="round"/>
+<rect x="42.5" y="30.0" width="3.0" height="5.0" fill="#0E1F32" rx="0.8"/>
+<rect x="37.0" y="34.5" width="14.0" height="3.5" fill="#0E1F32" rx="1.0"/>
+<rect x="37.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<rect x="48.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<circle cx="74.0" cy="48.0" r="6.0" fill="#0E1F32"/>
+<circle cx="74.0" cy="48.0" r="3.4" fill="#D86000"/>
+<circle cx="92.0" cy="22.0" r="5.0" fill="#0E1F32"/>
+<circle cx="92.0" cy="22.0" r="2.7" fill="#D86000"/>
+<circle cx="44.0" cy="30.0" r="3.8" fill="#0E1F32"/>
+<circle cx="44.0" cy="30.0" r="2.0" fill="#D86000"/></g>
+<rect width="120" height="84" rx="4" fill="none" stroke="#A9C4D4" stroke-width="1.2"/>
+</g>
+<text x="86.0" y="260.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">real frame</text>
+<path d="M138,214 C175,214 190,166 222,166" fill="none" stroke="#3D5878" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="223.0,166.0 215.0,169.4 215.0,162.6" fill="#3D5878"/>
+<text x="178.0" y="144.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">RSSM</text>
+<text x="178.0" y="157.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">posterior</text>
+<text x="242.0" y="158.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">root</text>
+<line x1="225.9" y1="170.4" x2="184.1" y2="215.6" stroke="#2F5F7E" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="232.1" y1="171.6" x2="247.9" y2="214.4" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="235.3" y1="168.9" x2="324.7" y2="217.1" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="235.7" y1="167.8" x2="394.3" y2="218.2" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="177.1" y1="225.2" x2="152.9" y2="268.8" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="181.1" y1="225.9" x2="188.9" y2="268.1" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="184.1" y1="224.4" x2="225.9" y2="269.6" stroke="#2F5F7E" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="327.5" y1="225.4" x2="307.5" y2="268.6" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="331.6" y1="225.8" x2="343.4" y2="268.2" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="334.3" y1="224.2" x2="380.7" y2="269.8" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="227.5" y1="279.4" x2="207.5" y2="322.6" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="231.1" y1="279.9" x2="238.9" y2="322.1" stroke="#A9C4D4" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="233.8" y1="278.6" x2="271.2" y2="323.4" stroke="#2F5F7E" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="230.0" cy="166.0" r="5.5" fill="#0E1F32"/>
+<circle cx="180.0" cy="220.0" r="5.5" fill="#0E1F32"/>
+<circle cx="250.0" cy="220.0" r="4.0" fill="#5B6B73"/>
+<circle cx="330.0" cy="220.0" r="5.5" fill="#0E1F32"/>
+<circle cx="400.0" cy="220.0" r="4.0" fill="#5B6B73"/>
+<circle cx="150.0" cy="274.0" r="4.0" fill="#5B6B73"/>
+<circle cx="190.0" cy="274.0" r="4.0" fill="#5B6B73"/>
+<circle cx="230.0" cy="274.0" r="5.5" fill="#0E1F32"/>
+<circle cx="305.0" cy="274.0" r="4.0" fill="#5B6B73"/>
+<circle cx="345.0" cy="274.0" r="4.0" fill="#5B6B73"/>
+<circle cx="385.0" cy="274.0" r="5.5" fill="#0E1F32"/>
+<circle cx="205.0" cy="328.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<circle cx="240.0" cy="328.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<circle cx="275.0" cy="328.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<text x="424.0" y="225.0" font-size="16" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">…</text>
+<text x="264.0" y="279.0" font-size="16" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">…</text>
+<text xml:space="preserve" x="190.0" y="202.0" font-size="15" fill="#2F5F7E" font-style="italic" text-anchor="end" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<text xml:space="preserve" x="220.0" y="244.0" font-size="15" fill="#2F5F7E" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">1</tspan></text>
+<text xml:space="preserve" x="265.0" y="298.0" font-size="15" fill="#2F5F7E" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">2</tspan></text>
+<line x1="205.0" y1="335.0" x2="205.0" y2="354.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<line x1="240.0" y1="335.0" x2="240.0" y2="354.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<path d="M275,335 L275,360" fill="none" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.5"/>
+<polygon points="275.0,361.0 272.1,354.0 277.9,354.0" fill="#2F5F7E"/>
+<g transform="translate(252.0,364.0) scale(0.5333)">
+<clipPath id="clip_lift_ok"><rect width="120" height="84" rx="4"/></clipPath>
+<rect width="120" height="84" rx="4" fill="#EEF5FA"/>
+<g clip-path="url(#clip_lift_ok)"><rect x="0.0" y="68.0" width="120.0" height="16.0" fill="#C4CADC"/>
+<line x1="0.0" y1="68.0" x2="120.0" y2="68.0" stroke="#A8B0C0" stroke-width="1.2" stroke-linecap="butt"/>
+<rect x="49.0" y="30.0" width="10.0" height="8.0" fill="#7888A0" rx="1.5"/>
+<rect x="60.0" y="60.0" width="28.0" height="8.0" fill="#3D5878" rx="1.2"/>
+<rect x="64.0" y="48.0" width="20.0" height="13.0" fill="#3D5878" rx="1.5"/>
+<line x1="74" y1="48" x2="96" y2="18" stroke="#D86000" stroke-width="7" stroke-linecap="round"/>
+<line x1="96" y1="18" x2="54" y2="22" stroke="#D86000" stroke-width="5.5" stroke-linecap="round"/>
+<rect x="52.5" y="22.0" width="3.0" height="5.0" fill="#0E1F32" rx="0.8"/>
+<rect x="47.0" y="26.5" width="14.0" height="3.5" fill="#0E1F32" rx="1.0"/>
+<rect x="47.0" y="29.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<rect x="58.0" y="29.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<circle cx="74.0" cy="48.0" r="6.0" fill="#0E1F32"/>
+<circle cx="74.0" cy="48.0" r="3.4" fill="#D86000"/>
+<circle cx="96.0" cy="18.0" r="5.0" fill="#0E1F32"/>
+<circle cx="96.0" cy="18.0" r="2.7" fill="#D86000"/>
+<circle cx="54.0" cy="22.0" r="3.8" fill="#0E1F32"/>
+<circle cx="54.0" cy="22.0" r="2.0" fill="#D86000"/></g>
+<rect width="120" height="84" rx="4" fill="none" stroke="#A9C4D4" stroke-width="1.2"/>
+</g>
+<rect x="250.0" y="362.0" width="68.0" height="48.8" fill="none" rx="5.0" stroke="#2F5F7E" stroke-width="2.4"/>
+<text x="284.0" y="426.0" font-size="13" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">imagined</text>
+<text x="284.0" y="441.0" font-size="13" fill="#2F5F7E" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">success</text>
+<path d="M345,281 L345,360" fill="none" stroke="#7A3020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.5"/>
+<polygon points="345.0,361.0 342.1,354.0 347.9,354.0" fill="#7A3020"/>
+<g transform="translate(322.0,364.0) scale(0.5333)">
+<clipPath id="clip_reach_far"><rect width="120" height="84" rx="4"/></clipPath>
+<rect width="120" height="84" rx="4" fill="#EEF5FA"/>
+<g clip-path="url(#clip_reach_far)"><rect x="0.0" y="68.0" width="120.0" height="16.0" fill="#C4CADC"/>
+<line x1="0.0" y1="68.0" x2="120.0" y2="68.0" stroke="#A8B0C0" stroke-width="1.2" stroke-linecap="butt"/>
+<rect x="38.0" y="58.0" width="12.0" height="10.0" fill="#7888A0" rx="1.5"/>
+<rect x="60.0" y="60.0" width="28.0" height="8.0" fill="#3D5878" rx="1.2"/>
+<rect x="64.0" y="48.0" width="20.0" height="13.0" fill="#3D5878" rx="1.5"/>
+<line x1="74" y1="48" x2="92" y2="22" stroke="#D86000" stroke-width="7" stroke-linecap="round"/>
+<line x1="92" y1="22" x2="44" y2="30" stroke="#D86000" stroke-width="5.5" stroke-linecap="round"/>
+<rect x="42.5" y="30.0" width="3.0" height="5.0" fill="#0E1F32" rx="0.8"/>
+<rect x="37.0" y="34.5" width="14.0" height="3.5" fill="#0E1F32" rx="1.0"/>
+<rect x="37.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<rect x="48.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<circle cx="74.0" cy="48.0" r="6.0" fill="#0E1F32"/>
+<circle cx="74.0" cy="48.0" r="3.4" fill="#D86000"/>
+<circle cx="92.0" cy="22.0" r="5.0" fill="#0E1F32"/>
+<circle cx="92.0" cy="22.0" r="2.7" fill="#D86000"/>
+<circle cx="44.0" cy="30.0" r="3.8" fill="#0E1F32"/>
+<circle cx="44.0" cy="30.0" r="2.0" fill="#D86000"/></g>
+<rect width="120" height="84" rx="4" fill="none" stroke="#A9C4D4" stroke-width="1.2"/>
+</g>
+<rect x="320.0" y="362.0" width="68.0" height="48.8" fill="none" rx="5.0" stroke="#7A3020" stroke-width="2.4"/>
+<text x="354.0" y="426.0" font-size="13" fill="#7A3020" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">far from</text>
+<text x="354.0" y="441.0" font-size="13" fill="#7A3020" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">the goal</text>
+<text x="352.0" y="342.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">mini-FM</text>
+<text x="352.0" y="355.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">rollouts</text>
+<text x="486.0" y="216.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">goal image</text>
+<text x="486.0" y="231.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">last demo frame</text>
+<g transform="translate(444.0,242.0) scale(0.7000)">
+<clipPath id="clip_lift_goal"><rect width="120" height="84" rx="4"/></clipPath>
+<rect width="120" height="84" rx="4" fill="#EEF5FA"/>
+<g clip-path="url(#clip_lift_goal)"><rect x="0.0" y="68.0" width="120.0" height="16.0" fill="#C4CADC"/>
+<line x1="0.0" y1="68.0" x2="120.0" y2="68.0" stroke="#A8B0C0" stroke-width="1.2" stroke-linecap="butt"/>
+<rect x="49.0" y="30.0" width="10.0" height="8.0" fill="#7888A0" rx="1.5"/>
+<rect x="60.0" y="60.0" width="28.0" height="8.0" fill="#3D5878" rx="1.2"/>
+<rect x="64.0" y="48.0" width="20.0" height="13.0" fill="#3D5878" rx="1.5"/>
+<line x1="74" y1="48" x2="96" y2="18" stroke="#D86000" stroke-width="7" stroke-linecap="round"/>
+<line x1="96" y1="18" x2="54" y2="22" stroke="#D86000" stroke-width="5.5" stroke-linecap="round"/>
+<rect x="52.5" y="22.0" width="3.0" height="5.0" fill="#0E1F32" rx="0.8"/>
+<rect x="47.0" y="26.5" width="14.0" height="3.5" fill="#0E1F32" rx="1.0"/>
+<rect x="47.0" y="29.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<rect x="58.0" y="29.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<circle cx="74.0" cy="48.0" r="6.0" fill="#0E1F32"/>
+<circle cx="74.0" cy="48.0" r="3.4" fill="#D86000"/>
+<circle cx="96.0" cy="18.0" r="5.0" fill="#0E1F32"/>
+<circle cx="96.0" cy="18.0" r="2.7" fill="#D86000"/>
+<circle cx="54.0" cy="22.0" r="3.8" fill="#0E1F32"/>
+<circle cx="54.0" cy="22.0" r="2.0" fill="#D86000"/></g>
+<rect width="120" height="84" rx="4" fill="none" stroke="#A9C4D4" stroke-width="1.2"/>
+</g>
+<text x="440.0" y="322.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">success: a frame</text>
+<text x="440.0" y="336.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">imagined within</text>
+<text x="440.0" y="350.0" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">goal_mse of it</text>
+<circle cx="452.0" cy="382.0" r="5.5" fill="#0E1F32"/>
+<text x="462.0" y="386.5" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">expanded</text>
+<circle cx="452.0" cy="400.0" r="4.0" fill="#5B6B73"/>
+<text x="462.0" y="404.5" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">child</text>
+<circle cx="452.0" cy="418.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<text x="462.0" y="422.5" font-size="12" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">new child</text>
+<path d="M248,394 L120,394" fill="none" stroke="#2F5F7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="114.0,394.0 122.0,390.6 122.0,397.4" fill="#2F5F7E"/>
+<rect x="70.0" y="391.6" width="4.8" height="12.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="76.5" y="385.6" width="4.8" height="18.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="83.0" y="394.0" width="4.8" height="9.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="89.4" y="382.0" width="4.8" height="21.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="95.9" y="389.2" width="4.8" height="14.4" fill="#2F5F7E" rx="0.8"/>
+<text xml:space="preserve" x="86.0" y="374.0" font-size="15" fill="#2F5F7E" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">0</tspan></text>
+<text x="86.0" y="422.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">runs in the sim</text>
+<text x="30.0" y="464.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">No success imagined: the root's most visited chunk runs. Then search again.</text>
+<rect x="16.0" y="490.0" width="528.0" height="330.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<text x="30.0" y="512.0" font-size="14" fill="#D86000" font-weight="700" text-anchor="start" font-family="'Courier New', monospace" letter-spacing="1">EXPAND</text>
+<text x="30.0" y="534.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM proposes, the RSSM imagines</text>
+<text xml:space="preserve" x="530.0" y="534.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="end" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>k</tspan><tspan font-style="normal"> = 8,  </tspan><tspan>σ</tspan><tspan font-style="normal"> = 0.3</tspan></text>
+<g transform="translate(28.0,600.0) scale(0.6000)">
+<clipPath id="clip_reach_p2"><rect width="120" height="84" rx="4"/></clipPath>
+<rect width="120" height="84" rx="4" fill="#EEF5FA"/>
+<g clip-path="url(#clip_reach_p2)"><rect x="0.0" y="68.0" width="120.0" height="16.0" fill="#C4CADC"/>
+<line x1="0.0" y1="68.0" x2="120.0" y2="68.0" stroke="#A8B0C0" stroke-width="1.2" stroke-linecap="butt"/>
+<rect x="38.0" y="58.0" width="12.0" height="10.0" fill="#7888A0" rx="1.5"/>
+<rect x="60.0" y="60.0" width="28.0" height="8.0" fill="#3D5878" rx="1.2"/>
+<rect x="64.0" y="48.0" width="20.0" height="13.0" fill="#3D5878" rx="1.5"/>
+<line x1="74" y1="48" x2="92" y2="22" stroke="#D86000" stroke-width="7" stroke-linecap="round"/>
+<line x1="92" y1="22" x2="44" y2="30" stroke="#D86000" stroke-width="5.5" stroke-linecap="round"/>
+<rect x="42.5" y="30.0" width="3.0" height="5.0" fill="#0E1F32" rx="0.8"/>
+<rect x="37.0" y="34.5" width="14.0" height="3.5" fill="#0E1F32" rx="1.0"/>
+<rect x="37.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<rect x="48.0" y="37.5" width="3.0" height="9.0" fill="#0E1F32" rx="0.8"/>
+<circle cx="74.0" cy="48.0" r="6.0" fill="#0E1F32"/>
+<circle cx="74.0" cy="48.0" r="3.4" fill="#D86000"/>
+<circle cx="92.0" cy="22.0" r="5.0" fill="#0E1F32"/>
+<circle cx="92.0" cy="22.0" r="2.7" fill="#D86000"/>
+<circle cx="44.0" cy="30.0" r="3.8" fill="#0E1F32"/>
+<circle cx="44.0" cy="30.0" r="2.0" fill="#D86000"/></g>
+<rect width="120" height="84" rx="4" fill="none" stroke="#A9C4D4" stroke-width="1.2"/>
+</g>
+<text x="64.0" y="670.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">node's frame</text>
+<text x="64.0" y="685.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">(decoded)</text>
+<line x1="104.0" y1="626.0" x2="114.0" y2="626.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="120.0,626.0 112.0,629.4 112.0,622.6" fill="#3D5878"/>
+<rect x="122.0" y="602.0" width="72.0" height="48.0" fill="#FFFFFF" rx="6.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="158.0" y="622.5" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">mini-FM</text>
+<text x="158.0" y="639.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">policy</text>
+<line x1="196.0" y1="626.0" x2="206.0" y2="626.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="212.0,626.0 204.0,629.4 204.0,622.6" fill="#3D5878"/>
+<rect x="214.0" y="625.0" width="4.0" height="10.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="219.4" y="620.0" width="4.0" height="15.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="224.8" y="627.0" width="4.0" height="8.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="230.2" y="617.0" width="4.0" height="18.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="235.6" y="623.0" width="4.0" height="12.0" fill="#2F5F7E" rx="0.8"/>
+<text xml:space="preserve" x="227.0" y="610.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="middle" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="super">FM</tspan></text>
+<path d="M242,626 L254,626" fill="none" stroke="#3D5878" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="258.0" y="560.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">candidates</text>
+<text x="344.0" y="560.0" font-size="13" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">prior</text>
+<path d="M254,626 C260,626 258,581 264,581" fill="none" stroke="#3D5878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="268.0" y="578.4" width="3.2" height="8.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="272.3" y="574.4" width="3.2" height="12.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="276.6" y="580.0" width="3.2" height="6.4" fill="#2F5F7E" rx="0.8"/>
+<rect x="281.0" y="572.0" width="3.2" height="14.4" fill="#2F5F7E" rx="0.8"/>
+<rect x="285.3" y="576.8" width="3.2" height="9.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="296.0" y="576.0" width="62.0" height="10.0" fill="#5B87A1" rx="2.0"/>
+<line x1="362.0" y1="581.0" x2="381.6" y2="607.1" stroke="#3D5878" stroke-width="1.1" stroke-linecap="butt"/>
+<polygon points="384.0,610.2 378.4,607.0 382.4,603.9" fill="#3D5878"/>
+<path d="M254,626 C260,626 258,611 264,611" fill="none" stroke="#3D5878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="268.0" y="606.0" width="3.2" height="10.4" fill="#2F5F7E" rx="0.8"/>
+<rect x="272.3" y="607.6" width="3.2" height="8.8" fill="#2F5F7E" rx="0.8"/>
+<rect x="276.6" y="608.4" width="3.2" height="8.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="281.0" y="603.6" width="3.2" height="12.8" fill="#2F5F7E" rx="0.8"/>
+<rect x="285.3" y="605.2" width="3.2" height="11.2" fill="#2F5F7E" rx="0.8"/>
+<rect x="296.0" y="606.0" width="38.0" height="10.0" fill="#5B87A1" rx="2.0"/>
+<line x1="338.0" y1="611.0" x2="380.1" y2="619.9" stroke="#3D5878" stroke-width="1.1" stroke-linecap="butt"/>
+<polygon points="384.0,620.8 377.6,622.0 378.7,617.0" fill="#3D5878"/>
+<path d="M254,626 C260,626 258,641 264,641" fill="none" stroke="#3D5878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="268.0" y="641.6" width="3.2" height="4.8" fill="#2F5F7E" rx="0.8"/>
+<rect x="272.3" y="632.8" width="3.2" height="13.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="276.6" y="636.8" width="3.2" height="9.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="281.0" y="636.0" width="3.2" height="10.4" fill="#2F5F7E" rx="0.8"/>
+<rect x="285.3" y="639.2" width="3.2" height="7.2" fill="#2F5F7E" rx="0.8"/>
+<rect x="296.0" y="636.0" width="26.0" height="10.0" fill="#5B87A1" rx="2.0"/>
+<line x1="326.0" y1="641.0" x2="380.1" y2="631.9" stroke="#3D5878" stroke-width="1.1" stroke-linecap="butt"/>
+<polygon points="384.0,631.2 378.5,634.7 377.7,629.8" fill="#3D5878"/>
+<path d="M254,626 C260,626 258,671 264,671" fill="none" stroke="#3D5878" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="268.0" y="664.4" width="3.2" height="12.0" fill="#2F5F7E" rx="0.8"/>
+<rect x="272.3" y="669.2" width="3.2" height="7.2" fill="#2F5F7E" rx="0.8"/>
+<rect x="276.6" y="673.2" width="3.2" height="3.2" fill="#2F5F7E" rx="0.8"/>
+<rect x="281.0" y="662.0" width="3.2" height="14.4" fill="#2F5F7E" rx="0.8"/>
+<rect x="285.3" y="662.8" width="3.2" height="13.6" fill="#2F5F7E" rx="0.8"/>
+<rect x="296.0" y="666.0" width="14.0" height="10.0" fill="#5B87A1" rx="2.0"/>
+<line x1="314.0" y1="671.0" x2="380.3" y2="643.3" stroke="#3D5878" stroke-width="1.1" stroke-linecap="butt"/>
+<polygon points="384.0,641.8 379.4,646.4 377.5,641.7" fill="#3D5878"/>
+<text x="282.0" y="696.0" font-size="16" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">⋮</text>
+<text x="262.0" y="720.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">+ 7 noisy copies</text>
+<rect x="386.0" y="596.0" width="64.0" height="60.0" fill="#FFFFFF" rx="6.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="418.0" y="622.5" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">RSSM</text>
+<text x="418.0" y="639.5" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">5 steps</text>
+<line x1="452.0" y1="626.0" x2="464.0" y2="626.0" stroke="#3D5878" stroke-width="1.6" stroke-linecap="butt"/>
+<polygon points="470.0,626.0 462.0,629.4 462.0,622.6" fill="#3D5878"/>
+<circle cx="484.0" cy="581.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<line x1="491.0" y1="581.0" x2="530.0" y2="581.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<circle cx="484.0" cy="611.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<line x1="491.0" y1="611.0" x2="530.0" y2="611.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<circle cx="484.0" cy="641.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<line x1="491.0" y1="641.0" x2="530.0" y2="641.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<circle cx="484.0" cy="671.0" r="5.5" fill="#FFFFFF" stroke="#2F5F7E" stroke-width="2.2"/>
+<line x1="491.0" y1="671.0" x2="530.0" y2="671.0" stroke="#2F5F7E" stroke-width="1.4" stroke-linecap="butt" stroke-dasharray="3 2.5"/>
+<text x="484.0" y="696.0" font-size="16" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">⋮</text>
+<text x="536.0" y="720.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">children, rolled out</text>
+<text x="32.0" y="752.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">prior</text>
+<text xml:space="preserve" x="96.0" y="752.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan>P</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> = (1 − </tspan><tspan>ε</tspan><tspan font-style="normal">) softmax(−</tspan><tspan>α</tspan><tspan font-style="normal"> ‖</tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> − </tspan><tspan font-weight="700" font-style="normal">a</tspan><tspan font-size="10.5" baseline-shift="super">FM</tspan><tspan font-style="normal">‖)</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> + </tspan><tspan>ε</tspan><tspan font-style="normal"> / </tspan><tspan>k</tspan></text>
+<text x="32.0" y="776.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Courier New', monospace">select</text>
+<text xml:space="preserve" x="96.0" y="776.0" font-size="15" fill="#1A1A1A" font-style="italic" text-anchor="start" font-family="'Times New Roman', 'DejaVu Serif', serif"><tspan font-style="normal">argmax</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> </tspan><tspan>P</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal"> √(</tspan><tspan>N</tspan><tspan font-style="normal"> + 1) / (1 + </tspan><tspan>N</tspan><tspan font-size="10.5" baseline-shift="sub">i</tspan><tspan font-style="normal">)</tspan></text>
+<text x="356.0" y="776.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">(PUCT, no value)</text>
+<text x="30.0" y="806.0" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">VLAPS picks its 10 candidates from ~2000 chunks of successful runs.</text>
+</svg>

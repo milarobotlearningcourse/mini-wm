@@ -1,0 +1,17 @@
+## The short sim eval of the tests (conf/tests/mini-fm-testing.yaml): one task of libero_spatial, the suite they train
+## on, for one short episode, in the training process.
+simulators:
+  libero:
+    engine: "robosuite on MuJoCo, on the CPU (one env process per task)"
+    eval_tasks: null
+    tasks_per_eval: 1
+    num_init_states: [0] ## one episode per suite
+    episode_length: 40
+    wait_steps: 10
+    task_sets:
+      libero_spatial:
+        robot: Franka Panda
+eval_interval: 299 ## one sim eval, at the last step of a 300-step test
+background: false
+device: cpu
+task_sets: null ## every suite listed above

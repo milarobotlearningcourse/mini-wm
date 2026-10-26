@@ -1,0 +1,47 @@
+## RL fine-tuning (GRPO or PPO) of a pretrained mini-FM policy in LIBERO (mini_fm_rl.py), run by
+## mini_train.py --config-name mini-fm-rl. The update settings follow RLinf's libero_spatial_grpo_openvlaoft.yaml
+## (https://github.com/RLinf/RLinf, examples/embodiment/config), which takes OpenVLA-OFT from about 52% to 99% on
+## libero_spatial.
+defaults:
+  - sim: default ## the LIBERO suite (its one task set, or sim.task_sets=[<suite>]), episode_length and wait_steps, shared with pre-training (conf/sim/)
+  - _self_
+
+experiment:
+  name: rl
+  project: mini-wm
+
+trainer: rl ## mini_train.py runs RL fine-tuning (mini_fm_rl.py)
+algorithm: grpo ## grpo: advantages from each rollout's success against its group; ppo: GAE with a learned value head
+
+init_model: checkpoints/miniFM_libero90.pth ## a model saved by mini_train.py (with a regression head), relative to the repo root: its miniFM_best.pth (best sim success; here a mini-FM trained on libero_90 for 25k steps), or a miniFM_rl.pth to keep training
+tasks: null ## task ids of the suite to train and evaluate on; null means all of its tasks
+train_init_states: [5, 50] ## [first, last) of LIBERO's 50 fixed init states of each task, sampled for the training groups
+eval_init_states: [0, 5] ## [first, last) init states of every task in the evals; training never uses them
+
+iterations: 200
+tasks_per_iter: 10 ## different tasks per iteration; at most the number of tasks
+groups_per_task: 7 ## groups per task per iteration, each from a different random training init state
+group_size: 8 ## rollouts per group, so tasks_per_iter * groups_per_task * group_size (560) episodes per iteration; a rollout's advantage is its success against the mean and std of its group
+action_std: 0.15 ## std of the Gaussian policy around the predicted chunk (exploration noise), in whitened action units, i.e. 0.15 of each action dimension's std in the data
+
+epochs: 1 ## passes over each iteration's rollouts
+minibatch_size: 1024 ## policy queries per gradient step
+learning_rate: 2e-5
+clip_low: 0.2 ## the ratio of each action value is clipped to [1 - clip_low, 1 + clip_high]
+clip_high: 0.28 ## higher than clip_low, so actions that worked can gain more probability (as in DAPO)
+kl_weight: 0.0 ## weight of the KL penalty to the policy before each update (the one that collected the rollouts); RLinf uses none
+max_grad_norm: 1.0
+## PPO only
+gamma: 0.99 ## discount per policy query (action chunk)
+gae_lambda: 0.95
+value_learning_rate: 1e-4 ## the value head's AdamW (it starts from scratch, on the policy's detached features)
+
+eval_interval: 25 ## iterations between evals (also at the start and the end)
+envs_per_task: 2 ## parallel LIBERO envs per task, open for the whole run for the rollouts and evals (one process of about 2 GB of RAM each, and about one CPU)
+min_ready_envs: 1 ## the envs step asynchronously; the policy is queried, in one batch, once this many have finished their chunk (1 was fastest)
+
+r_seed: 1
+device: cuda
+precision: bf16 ## fp32 or bf16 (autocast), for the rollouts and updates
+testing: true ## true turns off wandb logging (TensorBoard still logs)
+tensorboard: true

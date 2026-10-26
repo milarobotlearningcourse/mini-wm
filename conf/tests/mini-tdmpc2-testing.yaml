@@ -1,0 +1,12 @@
+# @package _global_
+## The short run of tests/mini-fm-testing.yaml with mini-TD-MPC2: python mini_train.py --config-name tests/mini-tdmpc2-testing
+defaults:
+  - /tests/mini-fm-testing
+  - _self_
+
+learning_rate: 3e-4
+image_block_size: 64 ## one camera, as mini-tdmpc2.yaml
+model:
+  type: tdmpc2
+dataset:
+  cameras: null

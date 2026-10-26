@@ -1,0 +1,17 @@
+## mini-TD-MPC2 (mini_tdmpc2.py): TD-MPC2 learned offline from the robot demonstrations, with its own policy (it plans
+## with MPPI), on mini-FM's data and sim evals (mini-fm.yaml); its settings are model.horizon to model.temperature there.
+##   uv run mini_train.py --config-name mini-tdmpc2
+defaults:
+  - mini-fm
+  - _self_
+
+experiment:
+  name: mini_tdmpc2
+
+learning_rate: 3e-4 ## TD-MPC2's
+image_block_size: 64 ## one camera: TD-MPC2's CNN takes one 64x64 frame
+model:
+  type: tdmpc2
+
+dataset:
+  cameras: null ## one camera per dataset (robot_image_key)

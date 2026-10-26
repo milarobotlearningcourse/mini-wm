@@ -1,0 +1,26 @@
+# @package _global_
+## A short run of mini-fm-rl.yaml for smoke tests: python mini_train.py --config-name tests/mini-fm-rl-testing
+## From the shipped mini-FM (checkpoints/miniFM_libero90.pth): two iterations of one group of 4 short rollouts on
+## libero_90 task 0, and a one-episode eval before and after. A pipeline check, not a learning check: a group whose
+## rollouts all have the same outcome gives GRPO no update.
+defaults:
+  - /mini-fm-rl
+  - override /sim: testing
+  - _self_
+
+sim:
+  task_sets: [libero_90] ## the suite the checkpoint was trained on
+  simulators:
+    libero:
+      episode_length: 100
+
+tasks: [0]
+train_init_states: [5, 6]
+eval_init_states: [0, 1]
+iterations: 2
+eval_interval: 2
+tasks_per_iter: 1
+groups_per_task: 1
+group_size: 4
+envs_per_task: 4
+min_ready_envs: 2 ## less than envs_per_task, so the envs step asynchronously

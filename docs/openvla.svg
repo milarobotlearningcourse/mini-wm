@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="846" viewBox="0 0 560 846">
+<rect x="0.0" y="0.0" width="560.0" height="846.0" fill="#F5FAFD"/>
+<text x="16.0" y="34.0" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">OpenVLA: a language model that writes actions</text>
+<text x="16.0" y="56.0" font-size="14" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Kim et al. 2024: a pre-trained 7B VLM, fine-tuned on 970k robot episodes.</text>
+<rect x="16.0" y="72.0" width="528.0" height="758.0" fill="#FFFFFF" rx="6.0" stroke="#A9C4D4" stroke-width="1.2"/>
+<rect x="96.0" y="100.0" width="76.0" height="76.0" fill="#EEF5FA" rx="2.0"/>
+<rect x="96.0" y="153.2" width="76.0" height="22.8" fill="#A9C4D4"/>
+<rect x="117.3" y="139.5" width="16.7" height="13.7" fill="#3D5878" rx="1.0"/>
+<line x1="150.7" y1="100.0" x2="150.7" y2="124.3" stroke="#D86000" stroke-width="5.4" stroke-linecap="butt"/>
+<rect x="144.6" y="124.3" width="12.2" height="4.6" fill="#0E1F32"/>
+<line x1="106.9" y1="100.0" x2="106.9" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="110.9" x2="172.0" y2="110.9" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="117.7" y1="100.0" x2="117.7" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="121.7" x2="172.0" y2="121.7" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="128.6" y1="100.0" x2="128.6" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="132.6" x2="172.0" y2="132.6" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="139.4" y1="100.0" x2="139.4" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="143.4" x2="172.0" y2="143.4" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="150.3" y1="100.0" x2="150.3" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="154.3" x2="172.0" y2="154.3" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="161.1" y1="100.0" x2="161.1" y2="176.0" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<line x1="96.0" y1="165.1" x2="172.0" y2="165.1" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="butt"/>
+<rect x="96.0" y="100.0" width="76.0" height="76.0" fill="none" rx="2.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text x="134.0" y="194.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">camera image, 224×224</text>
+<rect x="286.0" y="118.0" width="236.0" height="40.0" fill="#EEF5FA" rx="8.0" stroke="#5B87A1" stroke-width="1.0"/>
+<text x="404.0" y="143.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">“put the black bowl on the plate”</text>
+<text x="404.0" y="194.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">the instruction</text>
+<line x1="122.0" y1="202.0" x2="89.3" y2="219.2" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="84.0,222.0 88.8,216.1 91.6,221.3" fill="#3D5878"/>
+<line x1="146.0" y1="202.0" x2="178.7" y2="219.2" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="184.0,222.0 176.4,221.3 179.2,216.1" fill="#3D5878"/>
+<rect x="30.0" y="222.0" width="108.0" height="44.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="84.0" y="241.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">DINOv2</text>
+<text x="84.0" y="258.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">where things are</text>
+<rect x="146.0" y="222.0" width="108.0" height="44.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="200.0" y="241.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">SigLIP</text>
+<text x="200.0" y="258.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">what they are</text>
+<line x1="84.0" y1="266.0" x2="123.0" y2="292.6" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="128.0,296.0 120.6,294.5 123.9,289.6" fill="#3D5878"/>
+<line x1="200.0" y1="266.0" x2="161.0" y2="292.6" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="156.0,296.0 160.1,289.6 163.4,294.5" fill="#3D5878"/>
+<rect x="56.0" y="296.0" width="172.0" height="44.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="142.0" y="315.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">MLP projector</text>
+<text x="142.0" y="332.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">concatenated features</text>
+<line x1="404.0" y1="202.0" x2="404.0" y2="216.0" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="404.0,222.0 401.1,215.0 406.9,215.0" fill="#3D5878"/>
+<rect x="324.0" y="222.0" width="160.0" height="44.0" fill="#FFFFFF" rx="5.0" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="404.0" y="241.0" font-size="14" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Llama tokenizer</text>
+<text x="404.0" y="258.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">subword tokens</text>
+<line x1="404.0" y1="266.0" x2="404.0" y2="358.0" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="404.0,364.0 401.1,357.0 406.9,357.0" fill="#3D5878"/>
+<line x1="142.0" y1="340.0" x2="142.0" y2="358.0" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="142.0,364.0 139.1,357.0 144.9,357.0" fill="#3D5878"/>
+<rect x="46.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="63.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="80.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="97.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="114.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="131.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="148.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="165.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="182.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="199.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="216.0" y="368.0" width="14.0" height="14.0" fill="#2F5F7E" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="138.5" y="402.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">image tokens (256)</text>
+<rect x="340.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="357.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="374.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="391.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="408.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="425.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="442.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<rect x="459.0" y="368.0" width="14.0" height="14.0" fill="#5B6B73" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="407.0" y="402.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">text tokens</text>
+<text x="270.0" y="380.0" font-size="15" fill="#5B6B73" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">…</text>
+<line x1="140.0" y1="410.0" x2="140.0" y2="430.0" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="140.0,436.0 137.1,429.0 142.9,429.0" fill="#3D5878"/>
+<line x1="408.0" y1="410.0" x2="408.0" y2="430.0" stroke="#3D5878" stroke-width="1.3" stroke-linecap="butt"/>
+<polygon points="408.0,436.0 405.1,429.0 410.9,429.0" fill="#3D5878"/>
+<rect x="40.0" y="438.0" width="480.0" height="64.0" fill="#EEF5FA" rx="8.0" stroke="#1A1A1A" stroke-width="1.8"/>
+<text x="280.0" y="466.0" font-size="18" fill="#1A1A1A" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Llama 2 7B</text>
+<text x="280.0" y="486.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">the language model: reads the tokens, writes the next one</text>
+<line x1="100.0" y1="504.0" x2="100.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="100.0,548.0 97.5,542.0 102.5,542.0" fill="#D86000"/>
+<rect x="90.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="100.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δx</text>
+<line x1="160.0" y1="504.0" x2="160.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="160.0,548.0 157.5,542.0 162.5,542.0" fill="#D86000"/>
+<rect x="150.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="160.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δy</text>
+<path d="M 112.0 550.0 Q 130.0 536.0 148.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<line x1="220.0" y1="504.0" x2="220.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="220.0,548.0 217.5,542.0 222.5,542.0" fill="#D86000"/>
+<rect x="210.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="220.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δz</text>
+<path d="M 172.0 550.0 Q 190.0 536.0 208.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<line x1="280.0" y1="504.0" x2="280.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="280.0,548.0 277.5,542.0 282.5,542.0" fill="#D86000"/>
+<rect x="270.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="280.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δroll</text>
+<path d="M 232.0 550.0 Q 250.0 536.0 268.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<line x1="340.0" y1="504.0" x2="340.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="340.0,548.0 337.5,542.0 342.5,542.0" fill="#D86000"/>
+<rect x="330.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="340.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δpitch</text>
+<path d="M 292.0 550.0 Q 310.0 536.0 328.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<line x1="400.0" y1="504.0" x2="400.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="400.0,548.0 397.5,542.0 402.5,542.0" fill="#D86000"/>
+<rect x="390.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="400.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Δyaw</text>
+<path d="M 352.0 550.0 Q 370.0 536.0 388.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<line x1="460.0" y1="504.0" x2="460.0" y2="543.0" stroke="#D86000" stroke-width="1.2" stroke-linecap="butt"/>
+<polygon points="460.0,548.0 457.5,542.0 462.5,542.0" fill="#D86000"/>
+<rect x="450.0" y="552.0" width="20.0" height="20.0" fill="#D86000" rx="2.0" stroke="#0E1F32" stroke-width="0.6"/>
+<text x="460.0" y="592.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">grip</text>
+<path d="M 412.0 550.0 Q 430.0 536.0 448.0 550.0" fill="none" stroke="#D86000" stroke-width="1" stroke-dasharray="2 2"/>
+<text x="280.0" y="618.0" font-size="13" fill="#D86000" font-weight="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">7 action tokens, written one at a time, as text is</text>
+<line x1="30.0" y1="650.0" x2="530.0" y2="650.0" stroke="#A9C4D4" stroke-width="1.0" stroke-linecap="butt"/>
+<rect x="84.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="96.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="108.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="120.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="133.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="145.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="157.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="169.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="182.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="194.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="206.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="218.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="231.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="243.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="255.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="267.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="280.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="292.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="304.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="316.8" y="670.0" width="11.2" height="16.0" fill="#D86000" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="329.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="341.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="353.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="365.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="378.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="390.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="402.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="414.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="427.0" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="439.2" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="451.5" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<rect x="463.8" y="670.0" width="11.2" height="16.0" fill="#EEF5FA" stroke="#5B87A1" stroke-width="0.5"/>
+<text x="76.0" y="683.0" font-size="15" fill="#5B6B73" font-weight="400" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">−</text>
+<text x="484.0" y="683.0" font-size="15" fill="#5B6B73" font-weight="400" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">+</text>
+<text x="280.0" y="708.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Each token is one of 256 bins of its dimension (32 drawn), between the data's</text>
+<text x="280.0" y="726.0" font-size="13" fill="#1A1A1A" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">1st and 99th percentiles; the bin's center is the action sent to the robot.</text>
+<text x="280.0" y="752.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">The 256 bins reuse Llama's 256 least-used words, so nothing in the model changes:</text>
+<text x="280.0" y="770.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">it is trained with the language model's own next-token loss.</text>
+<text x="280.0" y="796.0" font-size="13" fill="#5B6B73" font-weight="400" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic">OpenVLA-OFT: a regression head writes the whole chunk at once instead (L1).</text>
+</svg>
