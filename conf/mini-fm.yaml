@@ -5,7 +5,7 @@ defaults:
 
 experiment:
   name: mini_fm ## the wandb group of the run (each run is <name>_seed<r_seed>): say what the experiment changes
-  project: mini-wm ## the wandb project every model (mini-FM, mini-WAM, mini-Dreamer, RL, ...) logs to, with testing=false
+  project: mini-fm ## the wandb project every model (mini-FM, mini-WAM, mini-Dreamer, RL, ...) logs to, with testing=false
   entity: null ## your wandb team or user name; null uses your default
 
 ## Data Processsing Hyperparameters
@@ -23,12 +23,13 @@ r_seed: 1337
 trainer: pretrain ## what mini_train.py runs: pretrain (this file, mini-wam.yaml), rl (RL fine-tuning, mini-fm-rl.yaml) or vlaps (search, no training, mini-vlaps.yaml)
 
 model:
-  type: fm ## fm (the transformer in mini_fm.py), small_convnet (SmallConvNetFM in mini_fm.py: three convolutions) or
+  type: fm ## fm (the transformer in mini_fm.py), convnet (ConvNetFM in mini_fm.py: mini-GRP's residual convnet),
+    ## small_convnet (SmallConvNetFM in mini_fm.py: three convolutions) or
     ## wam (the world action model in mini_wam.py, robot data only: conf/mini-wam.yaml) or dreamer (the forward
     ## dynamics model in mini_dreamer.py, robot data only: conf/mini-dreamer.yaml) or jepa (the latent world model in
     ## mini_jepa.py, robot data only: conf/mini-jepa.yaml) or tdmpc2 (TD-MPC2 in mini_tdmpc2.py, its own policy, robot data
     ## only: conf/mini-tdmpc2.yaml)
-  action_head: huber ## huber (the default: regress the action chunk, squared error within 1 of the target and L1 beyond; fm only, WAM uses mse), mse, l1 (fm only: regress it with an L1 loss, as OpenVLA-OFT) or diffusion (flow matching with an action expert that samples it, one token per action, as in π0)
+  action_head: huber ## huber (the default: regress the action chunk, squared error within 1 of the target and L1 beyond; fm only, the convnet and WAM use mse), mse, l1 (fm only: regress it with an L1 loss, as OpenVLA-OFT) or diffusion (flow matching with an action expert that samples it, one token per action, as in π0)
   token_per_action: false ## fm only: end the sequence with one class token per action of the chunk (policy.action_stacking), each
     ## decoded by the same linear layer (with the diffusion head: its action expert is then causal too, action i sees the action tokens up to i), instead of one class token that decodes the whole chunk. Its mask is
     ## strictly causal: the pose and image tokens attend only to each other, the goal text and action tokens causally
@@ -51,8 +52,8 @@ model:
   return_lambda: 0.95 ## dreamer only: the lambda of the lambda-returns of the critic (on real sequences) and of the actor (in imagination), as DreamerV2 and V3
   critic_tau: 0.02 ## dreamer only: the slow critic's moving average, as DreamerV3
   imagine_horizon: 16 ## dreamer only: steps of mini-FM's rollouts in the world model, scored by their predicted rewards and the critic's value at the end
-  policy_net: fm ## dreamer only: the network of its policy (mini-FM): fm (the transformer) or small_convnet (three
-    ## convolutions), both from mini_fm.py; the small one is cheaper to run in imagination
+  policy_net: fm ## dreamer only: the network of its policy (mini-FM): fm (the transformer), convnet (ConvNetFM: MSE action
+    ## head) or small_convnet (three convolutions), all from mini_fm.py; the small ones are cheaper to run in imagination
   actor_coef: 1.0 ## dreamer only: weight of mini-FM's REINFORCE loss in imagination (DreamerV2's actor loss), next to its imitation loss; 0 turns imagination off
   actor_std: 0.15 ## dreamer only: std of the Gaussian around mini-FM's action that imagination samples from, in whitened action units (as mini-fm-rl.yaml's action_std)
   sequence_steps: 16 ## dreamer and jepa only: the world model trains on the current frame and the frames after the next sequence_steps

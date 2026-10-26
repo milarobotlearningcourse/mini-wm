@@ -67,7 +67,7 @@ MUJOCO_GL=egl uv run mini_train.py --config-name mini-vlaps init_model=<run fold
   one runs 10 random LIBERO-90 tasks, one episode each (`conf/sim/default.yaml`).
 
 **Weights & Biases.** Logging to wandb is off by default (`testing: true`). Turn it on with `testing=false`, after
-`uv run wandb login`. Runs go to the project `experiment.project` (`mini-wm`) of `experiment.entity` (your default),
+`uv run wandb login`. Runs go to the project `experiment.project` (`mini-fm`) of `experiment.entity` (your default),
 grouped by `experiment.name`: name each experiment after what it changes, e.g. `experiment.name=fm_diffusionhead`.
 
 **Slurm.** [launch_slurm.sh](launch_slurm.sh) runs one job per seed, with wandb on. Adapt its `#SBATCH` lines to your cluster:
@@ -95,9 +95,7 @@ uv run -m pytest tests/ -v                                          # all of the
 - `sim_eval.py`: batched rollouts in the LIBERO sim, for the sim evals and RL fine-tuning.
 - `logger.py`: TensorBoard and wandb.
 - `conf/`: the configs (hydra). `docs/`: the notebook's diagrams.
-- `checkpoints/miniFM_libero90.pth`: a mini-FM trained on LIBERO-90 for 25k steps, for the notebook and RL fine-tuning. It is
-  not in git: the notebook downloads it from [gberseth/mini-wm](https://huggingface.co/gberseth/mini-wm), or run
-  `hf download gberseth/mini-wm miniFM_libero90.pth --local-dir checkpoints`.
+- `checkpoints/miniFM_libero90.pth`: a mini-FM trained on LIBERO-90 for 25k steps, for the notebook and RL fine-tuning.
 
 The data is [gberseth/libero_90_no_noops_lerobot](https://huggingface.co/datasets/gberseth/libero_90_no_noops_lerobot):
 LIBERO-90's 3,933 demonstrations (90 tasks, 20 Hz) re-rendered without their no-op actions, with a wrist and an

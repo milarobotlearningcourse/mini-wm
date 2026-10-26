@@ -3,7 +3,7 @@ import math
 import re
 import unittest
 
-from tests.test_mini_fm_smoke import run_mini_fm
+from test_mini_fm_smoke import run_mini_fm
 
 """Smoke test for mini_wam.py, the world action model, trained by mini_train.py: the short run of
 conf/tests/mini-wam-testing.yaml (300 steps on libero_spatial, then one in-process sim eval) must

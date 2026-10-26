@@ -1,6 +1,6 @@
-## Data loading for the models (used by mini_train.py): LeRobot robot trajectories (goal text + camera images ->
-## action chunk), turned into batches of (X_text, X_img, Y, A, P), and a cache that keeps the datasets in RAM or on the
-## GPU so batches cost no CPU decoding.
+## Data loading for the robot foundation models (used by mini_train.py): LeRobot robot trajectories (goal
+## text + camera images -> action chunk), turned into batches of (X_text, X_img, Y, A, P), and a cache that keeps the
+## datasets on the GPU so batches cost no CPU decoding.
 import os
 import time
 import numpy as np
@@ -19,16 +19,30 @@ def build_vocab(chars):
 
 ## Every loader yields (X_text, X_img, Y, A, P): Y is the next-token target (cross entropy loss), A the action target
 ## (MSE loss) and P the robot's pose (POSE_KEY: the arm's joint positions), whitened. Actions are whitened with the stats
-## of their own dataset (dataset.action_stats), poses with those of all the robot data (dataset.pose_mean/std).
+## of their own dataset (dataset.action_stats), since their units differ (e.g. LIBERO's are in [-1, 1], Bridge's in m/s
+## and rad/s: VELOCITY_DATASETS), after their rotations are made axis-angle (to_batch_actions); poses with those of all
+## the robot data (dataset.pose_mean/std).
 ## A is an action chunk: the frame's action and the next policy.action_stacking - 1 of its trajectory (the last action
-## repeated past its end), whitened and flattened to action_stacking * action_dim. Every action is LIBERO's: the end
-## effector's delta position, its delta rotation (axis-angle) and the gripper (-1 open, 1 closed), at 20 Hz.
+## repeated past its end), whitened and flattened to action_stacking * action_dim.
 ## Rows with Y = -1 are robot rows scored only on A; all other rows are scored only on Y and have A = 0 and P = 0.
 
 ## The robot's pose the models take as input: the 7 arm joint positions. The actions they predict are end effector
 ## motions, so the input is kept in a different space from the output (with the end effector pose as input, the model
 ## can predict the next action from its own pose within a demo, which doesn't carry over to closed-loop control).
 POSE_KEY = "observation.joint_state"
+
+## The control frequency of the action chunks the models predict (LIBERO's and ManiSkill's). A dataset recorded slower
+## (Bridge, 5 Hz) has each action held for CONTROL_HZ / fps steps of its chunks (a, a, a, a, b, ... for Bridge), so
+## a chunk always spans the same time (action_stacking / CONTROL_HZ seconds). Bridge's held value is a velocity
+## (VELOCITY_DATASETS); a sim at the dataset's rate runs every (CONTROL_HZ / fps)-th action of a chunk.
+CONTROL_HZ = 20
+
+
+def hold_steps(fps):
+    """ Steps of a CONTROL_HZ chunk that each action of an fps dataset is held for. """
+    assert CONTROL_HZ % fps == 0, f"{fps} Hz data doesn't divide the {CONTROL_HZ} Hz control rate"
+    return CONTROL_HZ // int(fps)
+
 
 def to_rgb(img, size):
     """ A PIL image or an (H, W, 3) array as an RGB uint8 array of the given (width, height). """
@@ -40,6 +54,49 @@ def to_rgb(img, size):
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
     img = img[..., :3] ## drop alpha
     return img if img.shape[:2] == size[::-1] else cv2.resize(img, size)
+
+
+## Demos recorded in ManiSkill's Bridge twins (the WidowX), whose actions are in the twin controller's units: the delta
+## rotation as XYZ Euler angles and the gripper as a finger position target (0.014 closed - 0.038 open). They are
+## converted to Bridge's labels (delta axis-angle, gripper -1 open / 1 close), so all the WidowX data, real and sim,
+## agrees, and a model's actions mean the same on the real robot as in the twins.
+BRIDGE_TWIN_DEMOS = ["gberseth/maniskill_putspoonontablecloth_lerobot", "gberseth/maniskill_putcarrotonplate_lerobot",
+                     "gberseth/maniskill_stackcube_lerobot"]
+
+
+def to_bridge_actions(actions):
+    from scipy.spatial.transform import Rotation
+    rot = Rotation.from_euler("XYZ", actions[:, 3:6]).as_rotvec()
+    open_ = 2 * (actions[:, 6:] - 0.014) / (0.038 - 0.014) - 1 ## the twin's gripper controller maps [-1, 1] to 0.014 - 0.038
+    return np.concatenate([actions[:, :3], rot, -open_], axis=1).astype(np.float32)
+
+
+## Bridge's actions, and those of the demos in its twins (in Bridge's labels), are end-effector velocities in the
+## batches (m/s and rad/s: each 5 Hz step's motion times fps), so a value held for several steps of a CONTROL_HZ chunk
+## means the same motion in each. The eval in the twins integrates them over the sim's control step
+## (sim_eval.eval_maniskill).
+VELOCITY_DATASETS = ["gberseth/bridge_orig_lerobot", *BRIDGE_TWIN_DEMOS]
+
+## The ManiSkill datasets' actions were recorded for its pd_ee_delta_pose controller, which reads the delta rotation as
+## XYZ Euler angles (though the datasets name those columns axis_angle); the other datasets' are axis-angle. They are
+## axis-angle (in rad) in the batches, so a rotation means the same in every dataset; the ManiSkill evals convert back
+## (sim_eval.eval_maniskill). The stored rotation is the controller's normalized input: it scales it to a length of at
+## most 1, then multiplies it by its rot_lower, MANISKILL_ROT_SCALE (the Panda's and the stick's), to get the angles in rad.
+EULER_DATASETS = ["gberseth/maniskill_panda_lerobot", "gberseth/maniskill_panda_stick_lerobot", "gberseth/maniskill_pusht_lerobot"]
+MANISKILL_ROT_SCALE = -0.1
+
+
+def to_batch_actions(actions, repo_id, fps):
+    """ A dataset's stored actions, (n, action_dim), as the batches hold them: the delta rotation as axis-angle
+    (EULER_DATASETS) and the motion as a velocity (VELOCITY_DATASETS: the six pose dimensions times fps). """
+    from scipy.spatial.transform import Rotation
+    if repo_id in EULER_DATASETS: ## the Euler angles the controller executed, in rad, as axis-angle
+        rot = actions[:, 3:6] / actions[:, 3:6].norm(dim=1, keepdim=True).clamp(min=1) * MANISKILL_ROT_SCALE
+        rot = torch.from_numpy(Rotation.from_euler("XYZ", rot.numpy()).as_rotvec()).to(actions.dtype)
+        actions = torch.cat([actions[:, :3], rot, actions[:, 6:]], dim=1)
+    if repo_id in VELOCITY_DATASETS:
+        actions = torch.cat([actions[:, :6] * fps, actions[:, 6:]], dim=1)
+    return actions
 
 
 def load_lerobot(repo_id, image_key):
@@ -59,7 +116,7 @@ def load_lerobot(repo_id, image_key):
             root = snapshot_download(repo_id, repo_type="dataset", allow_patterns=["meta/*", "data/*", *(f"videos/{k}/*" for k in keys)])
             info = json.load(open(f"{root}/meta/info.json"))
             present = [k for k in keys if k in info["features"]]
-            assert present, f"{repo_id} has no camera {image_key}"
+            assert present, f"{repo_id} has no camera {image_key} (e.g. our Bridge export has no wrist camera)"
             episodes = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob(f"{root}/meta/episodes/*/*.parquet"))])
             episodes = episodes.sort_values("episode_index").reset_index(drop=True)
             videos = {k: [f"{root}/videos/{k}/chunk-{c:03d}/file-{f:03d}.mp4" for c, f in
@@ -81,6 +138,9 @@ def load_lerobot(repo_id, image_key):
         raise RuntimeError(f"{repo_id}: could not download all the videos")
     frames = datasets.load_dataset("parquet", data_files=data_files, split="train")
     frames = frames.select_columns(["action", POSE_KEY, "timestamp", "task_index", "episode_index"])
+    if repo_id in BRIDGE_TWIN_DEMOS:
+        actions = to_bridge_actions(np.stack(frames.with_format("numpy")[:]["action"]))
+        frames = frames.remove_columns("action").add_column("action", list(actions)).cast_column("action", datasets.Sequence(datasets.Value("float32"), 7))
     if len(present) < len(keys):
         print(f"{repo_id}: no camera {[k for k in keys if k not in present]}, left blank")
     ## Per camera: the episode's MP4 file and where the episode starts in it (a file may hold several episodes)
@@ -135,8 +195,9 @@ def stream_last_frames(repo_id, image_keys, indices, size):
 
 def load_lerobots(repo_ids, image_keys):
     """ load_lerobot for one dataset or a list of them (each with its own camera, image_keys: one key or a list),
-    joined into one: frame, episode and task indices are offset (tasks with the same goal text share an index), and
-    each episode records the dataset it came from. """
+    joined into one: frame, episode and task indices are offset
+    (tasks with the same goal text share an index), and each episode records the dataset it came from. The datasets
+    can have different frame rates (Bridge is 5 Hz, LIBERO and ManiSkill 20 Hz): each episode keeps its own. """
     import datasets, pandas as pd
     repo_ids = [repo_ids] if isinstance(repo_ids, str) else list(repo_ids)
     image_keys = [image_keys] * len(repo_ids) if isinstance(image_keys, str) else list(image_keys)
@@ -158,6 +219,17 @@ def load_lerobots(repo_ids, image_keys):
         n_frames, n_episodes = n_frames + len(frames), n_episodes + len(episodes)
         all_frames.append(frames); all_episodes.append(episodes)
         print(f"robot dataset {repo_id}: {len(episodes)} episodes, {len(frames)} frames, {len(repo_tasks)} tasks, {episodes['fps'][0]} Hz")
+    ## Robots have different numbers of joints (the WidowX has 6, LIBERO's Panda 7): pad each dataset's joint positions
+    ## with zeros to the longest, so the datasets can be joined
+    ## (the lengths come from the column types: reading a whole column takes minutes for Bridge's 1.3M frames)
+    longest = max(all_frames, key=lambda f: f.features[POSE_KEY].length)
+    pose_dim = longest.features[POSE_KEY].length
+    for i, f in enumerate(all_frames):
+        if f.features[POSE_KEY].length < pose_dim:
+            poses = np.stack(f.with_format("numpy")[:][POSE_KEY])
+            poses = np.pad(poses, ((0, 0), (0, pose_dim - poses.shape[1])))
+            f = f.remove_columns(POSE_KEY).add_column(POSE_KEY, list(poses))
+            all_frames[i] = f.cast_column(POSE_KEY, longest.features[POSE_KEY]) ## the same fixed-length type, to join them
     frames = all_frames[0] if len(all_frames) == 1 else datasets.concatenate_datasets(all_frames)
     return frames, pd.concat(all_episodes, ignore_index=True), tasks
 
@@ -193,7 +265,8 @@ class RobotEpisodes(torch.utils.data.Dataset):
         rows["video"], rows["start"], rows["fps"] = ep["video"], ep["start"], ep["fps"]
         rows["dataset"] = ep["dataset"]
         ## the action chunk of each frame, flattened
-        chunks = self._frames[[int(ep["dataset_from_index"]) + min(int(j) + c, n - 1) for j in offsets for c in range(self._chunk)]]["action"]
+        hold = hold_steps(ep["fps"]) ## each action held for this many steps of the chunk (1 at 20 Hz)
+        chunks = self._frames[[int(ep["dataset_from_index"]) + min(int(j) + c // hold, n - 1) for j in offsets for c in range(self._chunk)]]["action"]
         rows["action"] = [sum(chunks[i:i + self._chunk], []) for i in range(0, len(chunks), self._chunk)]
         return rows
 
@@ -245,8 +318,10 @@ class RobotCollate:
              if video is not None else None for video, start in zip(ep["video"], ep["start"])], len(ep["timestamp"]), self._size)]
         ## The first max_block_size characters of the goal, padded with spaces
         txt = [self._encode(self._tasks[t][:self._block].ljust(self._block)) for ep in episodes for t in ep["task_index"]]
-        ## each frame's action chunk (k, chunk * action_dim)
+        ## each frame's action chunk (k, chunk * action_dim), converted per action (to_batch_actions)
         chunks = [torch.tensor(ep["action"], dtype=torch.float32) for ep in episodes]
+        chunks = [to_batch_actions(c.reshape(-1, c.shape[1] // self._chunk), ep["dataset"], ep["fps"]).reshape(c.shape)
+                  for c, ep in zip(chunks, episodes)]
         actions = torch.cat([(c - self._action_stats[ep["dataset"]][0]) / self._action_stats[ep["dataset"]][1]
                              for c, ep in zip(chunks, episodes)])
         poses = torch.tensor([p for ep in episodes for p in ep[POSE_KEY]], dtype=torch.float32)
@@ -280,7 +355,8 @@ class RobotCache:
     """ A cache of robot trajectories kept on `device` (the GPU, or the CPU): the images (frames, H, W, 3), actions and
     poses of all its slots in one buffer each, slot i's frames from start[i], plus each slot's length and goal. When
     every episode fits, they are packed one after the other; when episodes are swapped in, each slot has room for the
-    longest episode. sample() picks n_ep trajectories, each with its probability from
+    longest episode. (Padding every episode to the longest instead would take 276 GB for LIBERO + PushT + Bridge,
+    whose 2.1M frames take 26 GB.) sample() picks n_ep trajectories, each with its probability from
     episode_probabilities (its dataset's share of the mix, split over that dataset's slots), and k distinct frames in
     each, with tensor ops, so batches cost no CPU decoding.
     With fewer slots than episodes, random episodes keep being swapped into random slots while training samples from
@@ -324,6 +400,7 @@ class RobotCache:
         self.poses = torch.zeros((frames_in_cache, cfg.pose_dim), device=device)
         self.goal_txt = torch.zeros((n, cfg.max_block_size), dtype=torch.long, device=device)
         self.length = torch.ones(n, dtype=torch.long, device=device)
+        self.hold = torch.ones(n, dtype=torch.long, device=device) ## hold_steps of each slot's episode
         self.device, self.swaps, self._lock = device, 0, threading.Lock()
         self._chunk = torch.arange(cfg.policy.action_stacking, device=device) ## offsets of an action chunk
         ## sample() also returns the frames after the next future_steps actions (mini_wam.py: the chunk's, mini_dreamer.py:
@@ -333,9 +410,9 @@ class RobotCache:
         self.future_actions, self.future_rewards = future_actions, future_rewards
         ## The frames are decoded by one worker process per CPU, each writing its episodes straight into a shared-memory
         ## buffer: in threads, PyAV holds the GIL too much to beat one thread, and passing each episode's frames back
-        ## to this process costs as much as decoding them. Then they go to the device (a copy only for cuda).
-        ## empty, not zeros: share_memory_ copies the buffer, and a zeroed one would be in RAM twice for that copy.
-        ## Every frame row gets written: by the fill, or past a short episode never sampled.
+        ## to this process costs as much as decoding them (log 2026-10-07). Then they go to the device (a copy only for cuda).
+        ## empty, not zeros: share_memory_ copies the buffer, and a zeroed one would be in RAM twice for that copy (log
+        ## 2026-10-08). Every frame row gets written: by the fill, or past a short episode never sampled.
         images = torch.empty((frames_in_cache, self._size[1], self._size[0] * cameras, 3), dtype=torch.uint8).share_memory_()
         fill_start = time.time()
         fill = DataLoader(_EpisodesIntoBuffer(episodes, self._in_cache, self._start, images, self._size), batch_size=None,
@@ -355,14 +432,14 @@ class RobotCache:
             self._thread.start()
 
     def _load(self, i):
-        """ Episode i (a row of `episodes`): its whitened actions and poses, and its goal. """
+        """ Episode i (a row of `episodes`): its whitened actions and poses, goal and hold steps. """
         ep = self._episodes.iloc[i]
         rows = slice(int(ep["dataset_from_index"]), int(ep["dataset_from_index"]) + int(ep["length"]))
         assert (self._episode_index[rows] == ep["episode_index"]).all() and len(set(self._task[rows])) == 1
         mean, std = self._action_stats[ep["dataset"]]
-        return (self._actions[rows] - mean) / std, self._poses[rows], int(self._task[rows.start])
+        return (to_batch_actions(self._actions[rows], ep["dataset"], ep["fps"]) - mean) / std, self._poses[rows], int(self._task[rows.start]), hold_steps(ep["fps"])
 
-    def _put(self, slot, actions, poses, task, images=None):
+    def _put(self, slot, actions, poses, task, hold, images=None):
         """ Writes an episode into a slot: its images too, unless a fill worker already did. """
         with self._lock:
             rows = slice(self._start[slot], self._start[slot] + len(actions))
@@ -372,6 +449,7 @@ class RobotCache:
             self.poses[rows] = poses.to(self.device, non_blocking=True)
             self.goal_txt[slot] = self._task_txt[task]
             self.length[slot] = len(actions)
+            self.hold[slot] = hold
 
     def _swap_forever(self):
         side = torch.cuda.Stream() if self.images.is_cuda else None
@@ -380,13 +458,13 @@ class RobotCache:
                 return
             if i in self._in_cache:
                 continue
-            actions, poses, task = self._load(i)
+            actions, poses, task, hold = self._load(i)
             if side is not None: ## copy to the device off the training stream, then wait here, not in training
                 with torch.cuda.stream(side):
                     images, actions, poses = (x.pin_memory().to(self.device, non_blocking=True) for x in (images, actions, poses))
                 side.synchronize()
             slot = self._rng.choice(self._slots_of[self._episodes.iloc[i]["dataset"]]) ## one of the same dataset
-            self._put(slot, actions, poses, task, images)
+            self._put(slot, actions, poses, task, hold, images)
             self._in_cache[slot] = i
             self.swaps += 1
 
@@ -406,10 +484,10 @@ class RobotCache:
             scores = torch.rand(n_ep, self._max_length, device=self.device)
             scores[torch.arange(scores.shape[1], device=self.device) >= length] = 2.0
             t = scores.topk(k, dim=1, largest=False).indices % length ## (n_ep, k); % only matters when length < k
-            ## (n_ep, k, chunk): the chunk's actions, the last action past the end
-            chunk = torch.minimum(t[..., None] + self._chunk, length[..., None] - 1)
+            ## (n_ep, k, chunk): each action held for hold steps (slower datasets), the last action past the end
+            chunk = torch.minimum(t[..., None] + self._chunk // self.hold[e, None, None], length[..., None] - 1)
             ## (n_ep, k, future_steps): the next future_steps actions, as the chunk's
-            future = torch.minimum(t[..., None] + self._future, length[..., None] - 1)
+            future = torch.minimum(t[..., None] + self._future // self.hold[e, None, None], length[..., None] - 1)
             start = self.start[e, None] ## (n_ep, 1): where each trajectory's frames start in the buffers
             e = e[:, None].expand(-1, k)
             batch = (self.goal_txt[e].flatten(0, 1), self.images[start + t].flatten(0, 1),
@@ -496,7 +574,7 @@ def scale_image(img, bounds):
 
 def to_device(batch, cfg):
     ## Pinned first: from pageable memory the copy can't be asynchronous, so it would wait for the GPU to finish the
-    ## training step queued before it, instead of the CPU sampling the next batch meanwhile
+    ## training step queued before it, instead of the CPU sampling the next batch meanwhile (log 2026-10-08)
     pin = lambda t: t.pin_memory() if t.device.type == "cpu" and str(cfg.device).startswith("cuda") else t
     ## future: a RobotCache's future frames, and their actions with future_actions
     X_text, X_img, Y, A, P, *future = (pin(t).to(cfg.device, non_blocking=True) for t in batch)

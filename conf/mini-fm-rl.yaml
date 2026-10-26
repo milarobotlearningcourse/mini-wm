@@ -8,7 +8,7 @@ defaults:
 
 experiment:
   name: rl
-  project: mini-wm
+  project: mini-fm
 
 trainer: rl ## mini_train.py runs RL fine-tuning (mini_fm_rl.py)
 algorithm: grpo ## grpo: advantages from each rollout's success against its group; ppo: GAE with a learned value head

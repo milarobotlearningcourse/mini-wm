@@ -5,7 +5,7 @@
 ## and the frame's encoding; each frame is decoded from (h, z). In training z comes from the posterior; the KL between the
 ## two teaches the prior to predict it. model.latent picks z: categorical (DreamerV3: stoch_dim one-hot variables of
 ## discrete_dim classes) or gaussian (DreamerV1: a stoch_dim Gaussian). The world model is its own network: mini-FM
-## (mini_fm.py; or a small convnet, model.policy_net), trained next to it, is the policy that the sim evals run: Dreamer's actor. Besides imitating the
+## (mini_fm.py; or a convnet, model.policy_net), trained next to it, is the policy that the sim evals run: Dreamer's actor. Besides imitating the
 ## demonstrations, it learns in imagination: from each real frame's state it acts on the decoded frames for
 ## model.imagine_horizon steps in the world model, which predicts the rewards and the critic's value at the end, and
 ## mini-FM is updated by REINFORCE on those imagined trajectories, as the actor loss of DreamerV2 (arXiv 2010.02193,
@@ -42,7 +42,7 @@ class Dreamer(nn.Module):
     super().__init__()
     self._cfg = cfg
     self._plain_cfg = plain_config(cfg) ## what forward() reads, so the compiled forward is one graph
-    self.fm = POLICY_NETS[cfg.model.policy_net](cfg) ## the policy: mini-FM's transformer, or a small convnet (model.policy_net)
+    self.fm = POLICY_NETS[cfg.model.policy_net](cfg) ## the policy: mini-FM's transformer, or a convnet (model.policy_net)
     m = cfg.model
     self.n_steps, self.categorical = m.sequence_steps, m.latent == "categorical"
     ## Imagination steps the world model on each action mini-FM predicts, and REINFORCE needs its log-probability: a

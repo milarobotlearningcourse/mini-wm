@@ -3,7 +3,7 @@ import math
 import re
 import unittest
 
-from tests.test_mini_fm_smoke import run_mini_fm
+from test_mini_fm_smoke import run_mini_fm
 
 """Smoke tests for mini_jepa.py, the latent world model after RoboJEPA (the embeddings of the frames after the
 next model.sequence_steps actions, from the current frame), trained by mini_train.py, acting with each of its

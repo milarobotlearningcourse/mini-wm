@@ -1,0 +1,19 @@
+# @package _global_
+## The WidowX data only: python mini_train.py dataset=bridge sim=bridge. full.yaml's settings with its data mix
+## replaced, for training a policy for the real WidowX and Bridge ManiSkill.
+defaults:
+  - full@dataset ## full.yaml under dataset. (this file is in the global package, for image_block_size)
+  - _self_
+
+dataset:
+  robot_dataset_name:
+    - gberseth/bridge_orig_lerobot ## BridgeData V2 (real WidowX, 5 Hz); no joint positions, so policy.use_pose_data=false
+    - gberseth/maniskill_pushletter_lerobot ## ManiSkill PushLetter-v1 (WidowX, 20 Hz); its env isn't in ManiSkill, so no sim eval
+    - gberseth/maniskill_putspoonontablecloth_lerobot ## demos in Bridge ManiSkill's PutSpoonOnTableClothInScene-v1 (5 Hz)
+    - gberseth/maniskill_putcarrotonplate_lerobot ## demos in Bridge ManiSkill's PutCarrotOnPlateInScene-v1
+    - gberseth/maniskill_stackcube_lerobot ## demos in Bridge ManiSkill's StackGreenCubeOnYellowCubeBakedTexInScene-v1
+  robot_dataset_weights: [0.2, 0.2, 0.2, 0.2, 0.2] ## equal, so the Bridge ManiSkill demos get 0.6 of the samples (since 2026-10-23; was
+    ## 0.5 Bridge, 0.125 each other, default.yaml's WidowX shares rescaled)
+  robot_image_key: observation.images.image ## all of them have only the agent view
+  cameras: null ## so one camera: no blank wrist image taking half the image tokens
+image_block_size: 64 ## the image tokens of one camera

@@ -1,0 +1,19 @@
+## The sim evals of sim/full.yaml in Bridge ManiSkill only (no LIBERO), for the WidowX data: python mini_train.py
+## dataset=bridge sim=bridge.
+defaults:
+  - full
+  - _self_
+
+simulators:
+  libero:
+    task_sets: null ## no LIBERO suites
+  maniskill:
+    task_sets:
+      bridge: ## Bridge ManiSkill: ManiSkill's copies of Bridge scenes, with the WidowX
+        robot: WidowX 250s, at 5 Hz
+        cameras: agent view, with a photo of the real scene overlaid
+        tasks: ## the envs each eval runs (sim_eval.maniskill_envs)
+          - PutCarrotOnPlateInScene-v1
+          - PutSpoonOnTableClothInScene-v1
+          - StackGreenCubeOnYellowCubeBakedTexInScene-v1
+          # - PutEggplantInBasketScene-v1 ## left out: the slowest Bridge ManiSkill task, 45% of the sim eval time of 11143996 (log 2026-10-09)

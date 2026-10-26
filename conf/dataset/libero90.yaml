@@ -1,0 +1,3 @@
+## LIBERO 90 only: the default (default.yaml), kept so that dataset=libero90 still works.
+defaults:
+  - default

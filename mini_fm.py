@@ -1,7 +1,7 @@
 ## mini-FM: a small foundation model, built from micro-vlm (github.com/milarobotlearningcourse/micro-vlm): one
 ## transformer that predicts robot action chunks from a goal text, camera images and (optionally) the robot's pose. Its
-## token head, from micro-vlm's VQA, gets no training rows. This file holds the models (FM, and SmallConvNetFM to compare
-## with) and their sim-eval policy, FMPolicy; mini_train.py trains them, the data loading is in data_loading.py and the
+## token head, from micro-vlm's VQA, gets no training rows. This file holds the models (FM, and ConvNetFM and
+## SmallConvNetFM to compare with) and their sim-eval policy, FMPolicy; mini_train.py trains them, the data loading is in data_loading.py and the
 ## LIBERO sim evals in sim_eval.py.
 import math
 import numpy as np
@@ -126,8 +126,8 @@ class Block(nn.Module):
         return x
 
 class MSEActionHead(nn.Module):
-  """ Regresses the (whitened) action chunk from the model's features, through net (a linear layer), with loss_name's
-  loss: mse; l1, which OpenVLA-OFT found better for action chunks (MSE pulls a chunk with several likely modes to their
+  """ Regresses the (whitened) action chunk from the model's features, through net (a linear layer for FM, ConvNetFM's
+  own MLP), with loss_name's loss: mse; l1, which OpenVLA-OFT found better for action chunks (MSE pulls a chunk with several likely modes to their
   mean); or huber, squared within 1 of the target (0.5 error^2) and L1 beyond (|error| - 0.5), so large errors pull no
   harder than in L1. """
   def __init__(self, net, loss_name="mse"):
@@ -380,6 +380,98 @@ class FM(nn.Module):
         return idx
 
 
+class ConvBlock(nn.Module):
+  """ Two 3x3 convolutions with GroupNorm and a residual connection. """
+
+  def __init__(self, in_channels, out_channels, dropout=0.0):
+    super().__init__()
+    groups = lambda channels: next(g for g in (32, 16, 8, 4, 2, 1) if channels % g == 0)
+    self.conv1 = nn.Conv2d(in_channels, out_channels, 3, 1, 1)
+    self.bn1 = nn.GroupNorm(groups(out_channels), out_channels)
+    self.relu = nn.ReLU(inplace=True)
+    self.conv2 = nn.Conv2d(out_channels, out_channels, 3, 1, 1)
+    self.bn2 = nn.GroupNorm(groups(out_channels), out_channels)
+    self.dropout = nn.Dropout2d(dropout) if dropout > 0 else None
+    self.skip = nn.Identity() if in_channels == out_channels else nn.Sequential(
+        nn.Conv2d(in_channels, out_channels, 1), nn.GroupNorm(groups(out_channels), out_channels))
+
+  def forward(self, x):
+    out = self.relu(self.bn1(self.conv1(x)))
+    if self.dropout is not None:
+      out = self.dropout(out)
+    return self.relu(self.bn2(self.conv2(out)) + self.skip(x))
+
+
+class GRPConvNet(nn.Module):
+  """ mini-GRP's convolutional policy: residual convolutions of the camera image, the goal text's character embeddings
+  (flattened, so their order is kept) and, with policy.use_pose_data, the pose, fused by an MLP; its action_head (an
+  MLP) decodes the fused features. ConvNetFM puts it behind FM's interface. """
+
+  def __init__(self, cfg):
+    super().__init__()
+    self._cfg = cfg
+    self.obs_encoder = nn.Sequential(
+        ConvBlock(3, 32, cfg.dropout), nn.MaxPool2d(2, 2),
+        ConvBlock(32, 64, cfg.dropout), nn.MaxPool2d(2, 2),
+        ConvBlock(64, 128, cfg.dropout), nn.MaxPool2d(2, 2),
+        ConvBlock(128, 256, cfg.dropout), nn.AdaptiveAvgPool2d((4, 4)))
+    self.text_embedding = nn.Embedding(len(cfg.dataset.chars_list), 32)
+    self.text_encoder = nn.Sequential(nn.Linear(cfg.max_block_size * 32, 256), nn.ReLU())
+    fusion_input_dim = 256 * 4 * 4 + 256
+    if cfg.policy.use_pose_data:
+      self.pose_embedding = nn.Sequential(nn.Linear(len(cfg.dataset.pose_mean), 128), nn.ReLU(), nn.Linear(128, 256))
+      fusion_input_dim += 256
+    self.fusion = nn.Sequential(
+        nn.Linear(fusion_input_dim, 512), nn.ReLU(), nn.Dropout(cfg.dropout),
+        nn.Linear(512, 512), nn.ReLU(), nn.Dropout(cfg.dropout),
+        nn.Linear(512, 256))
+    self.action_head = nn.Sequential(
+        nn.Linear(256, 128), nn.ReLU(), nn.Dropout(cfg.dropout), nn.Linear(128, cfg.action_dim * cfg.policy.action_stacking))
+
+  def features(self, images, goals_txt, pose=None):
+    """ The fused (B, 256) features of images (B, H, W, 3), goals_txt (B, max_block_size) and pose (B, pose_dim). """
+    B = len(images)
+    parts = [self.obs_encoder(images.permute(0, 3, 1, 2).float().contiguous()).reshape(B, -1),
+             self.text_encoder(self.text_embedding(goals_txt.long()).reshape(B, -1))]
+    if self._cfg.policy.use_pose_data:
+      parts.append(self.pose_embedding(pose).reshape(B, -1))
+    return self.fusion(torch.cat(parts, dim=1))
+
+
+class ConvNetFM(nn.Module):
+  """ GRPConvNet behind FM's interface, to compare the two on the same data, sim evals and logging. It has no token
+  head; it is conditioned on the goal text. """
+
+  def __init__(self, cfg):
+    super().__init__()
+    self._cfg = cfg
+    self.net = GRPConvNet(cfg)
+    ## The action head moves out of GRPConvNet: mse keeps its MLP (always MSE: huber and l1 are mini-FM's). With
+    ## diffusion, the action expert attends to one prefix token, the fused features, whose keys and values at each of
+    ## its layers are a linear map of them.
+    mlp = self.net.action_head
+    del self.net.action_head
+    if cfg.model.action_head == "diffusion":
+      self.action_head = DiffusionActionHead(cfg)
+      self.prefix = nn.Linear(mlp[0].in_features, cfg.n_blocks * 2 * cfg.n_embd)
+    else:
+      self.action_head = MSEActionHead(mlp)
+
+  def forward(self, X_text, X_images, targets=None, actions=None, pose=None):
+    cfg = self._cfg
+    cond = self.net.features(X_images, X_text, pose)
+    if cfg.model.action_head == "diffusion": ## (layers, 2, B, heads, 1 token, head size)
+      cond = (self.prefix(cond).unflatten(1, (cfg.n_blocks, 2, cfg.n_head, 1, -1)).permute(1, 2, 0, 3, 4, 5), None)
+    if targets is False: ## from act()
+      return cond
+    parts = {} if targets is None else {self.action_head.loss_name: self.action_head.loss(cond, actions).mean()}
+    loss = self._cfg.mse_head_weights * parts[self.action_head.loss_name] if parts else None ## weighted as FM's action head
+    return (None, loss, parts)
+
+  def act(self, X_text, X_images, pose):
+    return self.action_head.sample(self(X_text, X_images, targets=False, pose=pose))
+
+
 class SmallConvNetFM(nn.Module):
   """ A very small policy behind FM's interface: three stride-2 convolutions of the camera image (one camera), the goal
   text's character embeddings, one hidden layer and a regression action head (model.action_head: huber, mse or l1).
@@ -413,14 +505,14 @@ class SmallConvNetFM(nn.Module):
     return self.action_head.sample(self(X_text, X_images, targets=False, pose=pose))
 
 
-POLICY_NETS = {"fm": FM, "small_convnet": SmallConvNetFM}
+POLICY_NETS = {"fm": FM, "convnet": ConvNetFM, "small_convnet": SmallConvNetFM}
 
 def make_model(cfg):
   return POLICY_NETS[cfg.model.type](cfg)
 
 
 class FMPolicy(nn.Module):
-    """ Wraps a model (FM, SmallConvNetFM, or a world model's policy) in the interface sim_eval.py's rollouts expect:
+    """ Wraps a model (FM, ConvNetFM, SmallConvNetFM, or a world model's policy) in the interface sim_eval.py's rollouts expect:
     it encodes the goal text with dataset.chars_list and whitens the pose with dataset.pose_mean/std. It un-whitens the
     action chunk with the stats of the dataset of the task set it runs in (task_set, set by the sim eval or RL). The sim
     renders the camera the model was trained on (sim.obs_key, set by the eval from sim_eval.image_key_of) at the training
@@ -450,10 +542,13 @@ class FMPolicy(nn.Module):
     def preprocess_state(self, obs): ## scaled as in to_device()
         return scale_image(np.ascontiguousarray(obs[:, ::-1, :3]).astype(np.float32), self._cfg.image_bounds)
 
+    def preprocess_goal_image(self, obs): ## the episode's first frame, the goal image rollout_libero gives without one
+        return self.preprocess_state(obs)
+
     def robot_pose(self, obs): ## the arm's joint positions, as the datasets' POSE_KEY
         return obs["robot0_joint_pos"]
 
-    def forward(self, obs, txt_goal, goal_img, pose=None): ## a batch of observations
+    def forward(self, obs, txt_goal, goal_img, mask_=True, pose=None): ## a batch of observations; mask_ is for mini-grp's models
         n = len(obs)
         pose = pose.reshape(n, -1).float() if pose is not None else None
         if getattr(self.model, "goal_conditioned", False): ## a planner (mini_jepa.py's CEM): towards the episode's goal image, without the goal text

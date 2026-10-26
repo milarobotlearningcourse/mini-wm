@@ -2,7 +2,7 @@ import glob
 import re
 import unittest
 
-from tests.test_mini_fm_smoke import run_mini_fm
+from test_mini_fm_smoke import run_mini_fm
 
 """Smoke test for mini_vlaps.py, Monte Carlo tree search with a pre-trained mini-Dreamer and its mini-FM, as
 VLAPS: the short run of conf/tests/mini-dreamer-testing.yaml gives a miniDreamer_best.pth, then conf/mini-vlaps.yaml

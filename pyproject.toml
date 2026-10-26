@@ -3,7 +3,7 @@ name = "mini-wm"
 version = "0.1.0"
 description = "Small world models for robots, in a few readable files: mini-FM, mini-WAM, mini-Dreamer, mini-JEPA, mini-TD-MPC2 and mini-VLAPS on LIBERO-90"
 readme = "README.md"
-requires-python = "==3.10.*"
+requires-python = "==3.12.*"
 dependencies = [
     "torch==2.5.1",
     "numpy==1.26.4",

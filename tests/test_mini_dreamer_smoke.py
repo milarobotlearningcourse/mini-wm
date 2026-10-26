@@ -3,13 +3,13 @@ import math
 import re
 import unittest
 
-from tests.test_mini_fm_smoke import run_mini_fm
+from test_mini_fm_smoke import run_mini_fm
 
 """Smoke test for mini_dreamer.py, the forward dynamics model p(s'|s, a) built as DreamerV3's world model
 (the frames after the next model.sequence_steps actions, from the current frame), trained next to mini-FM's policy by
 mini_train.py: the short run of conf/tests/mini-dreamer-testing.yaml (20 steps on libero_spatial, under 5 min, then one
 in-process sim eval) must
-1) log finite val losses of the action head (huber), of the decoded frames (frames), of the KL losses (kl_dyn, kl_rep), of the reward
+1) log finite val losses of the action head (huber; mse for the convnet policy), of the decoded frames (frames), of the KL losses (kl_dyn, kl_rep), of the reward
    head (reward), of the critic (critic) and of mini-FM in imagination (actor), and the action and frame losses by
    dataset,
 2) save a grid of predicted frames (predicted_frames/<step>.png, every model.frame_image_interval steps and the last),
@@ -20,10 +20,10 @@ Every run gets its own folder, outputs/tests/<test>_<time>/, which is kept.
 
 
 class TestMiniDreamerSmoke(unittest.TestCase):
-    def _check_run(self, name, *overrides):
+    def _check_run(self, name, *overrides, action_loss="huber"):
         code, output, run_dir = run_mini_fm(name, *overrides, config="tests/mini-dreamer-testing")
         self.assertEqual(code, 0, msg=f"mini_train.py failed with code {code}. Output:\n{output[-5000:]}")
-        for head in ("huber", "frames", "kl_dyn", "kl_rep", "reward", "critic", "actor"):
+        for head in (action_loss, "frames", "kl_dyn", "kl_rep", "reward", "critic", "actor"):
             losses = [float(m) for m in re.findall(rf"val {head} ([-\d.naif]+)", output)]
             self.assertTrue(losses and all(math.isfinite(v) for v in losses), msg=f"val {head} losses: {losses}\n{output[-5000:]}")
         self.assertIn("val frames loss by dataset: libero_spatial_no_noops_lerobot", output, msg=output[-5000:])
@@ -44,6 +44,12 @@ class TestMiniDreamerSmoke(unittest.TestCase):
         """The three-convolution policy (model.policy_net small_convnet) in place of mini-FM's transformer."""
         self._check_run("dreamer_policysmall_convnet_robotfrac1.0_chunk1_wrist_steps16_frames32_categorical32x32",
                         "model.policy_net=small_convnet")
+
+
+    def test_mini_dreamer_convnet_smoke(self):
+        """ConvNetFM as the policy (model.policy_net convnet), whose action head is MSE."""
+        self._check_run("dreamer_policyconvnet_robotfrac1.0_chunk1_wrist_steps16_frames32_categorical32x32",
+                        "model.policy_net=convnet", action_loss="mse")
 
 
 if __name__ == "__main__":

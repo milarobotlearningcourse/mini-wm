@@ -1,5 +1,5 @@
 ## The short sim eval of the tests (conf/tests/mini-fm-testing.yaml): one task of libero_spatial, the suite they train
-## on, for one short episode, in the training process.
+## on, for one short episode, in the training process. A test of another task set lists it with sim.task_sets.
 simulators:
   libero:
     engine: "robosuite on MuJoCo, on the CPU (one env process per task)"
@@ -11,7 +11,12 @@ simulators:
     task_sets:
       libero_spatial:
         robot: Franka Panda
+        dataset: gberseth/libero_spatial_no_noops_lerobot
+  maniskill:
+    engine: "ManiSkill 3 (SAPIEN, GPU PhysX)"
+    episodes: 2
+    task_sets: null ## none unless a test lists one in sim.task_sets
 eval_interval: 299 ## one sim eval, at the last step of a 300-step test
 background: false
 device: cpu
-task_sets: null ## every suite listed above
+task_sets: null ## every task set listed above

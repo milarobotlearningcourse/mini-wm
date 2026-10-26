@@ -1,5 +1,5 @@
 ## Trains the small robot foundation models of this folder, picked by the config:
-## - pre-training (trainer: pretrain) of mini-FM (mini_fm.py: model.type fm or small_convnet) mini-WAM (mini_wam.py:
+## - pre-training (trainer: pretrain) of mini-FM (mini_fm.py: model.type fm, convnet or small_convnet) mini-WAM (mini_wam.py:
 ##   model.type wam), mini-Dreamer (mini_dreamer.py: model.type dreamer, a forward model with mini-FM as its policy) or
 ##   mini-JEPA (mini_jepa.py: model.type jepa, a latent world model that plans towards a goal image, or with mini-FM as its policy) or mini-TD-MPC2
 ##   (mini_tdmpc2.py: model.type tdmpc2, a world model that plans its actions, learned offline), on robot data, with sim evals during training;
@@ -23,11 +23,11 @@ import mini_fm, mini_wam, mini_dreamer, mini_jepa, mini_tdmpc2
 from sim_eval import eval_sim_suites, eval_task_sets, log_sim_eval, BackgroundSimEval
 from logger import Logger
 from data_loading import (build_vocab, load_lerobots, episode_probabilities, RobotEpisodes, RobotCollate, RobotCache,
-                          make_cache_loader, make_loader, to_device, n_cameras, POSE_KEY)
+                          make_cache_loader, make_loader, to_device, n_cameras, to_batch_actions, POSE_KEY)
 
 ## hydra writes these lines to the run folder's mini_train.log as well as to the console (print only reaches the console)
 log = logging.getLogger(__name__)
-MODELS = {"fm": mini_fm, "small_convnet": mini_fm, "wam": mini_wam, "dreamer": mini_dreamer, "jepa": mini_jepa, "tdmpc2": mini_tdmpc2} ## the file of each model.type, with its make_model and make_policy
+MODELS = {"fm": mini_fm, "convnet": mini_fm, "small_convnet": mini_fm, "wam": mini_wam, "dreamer": mini_dreamer, "jepa": mini_jepa, "tdmpc2": mini_tdmpc2} ## the file of each model.type, with its make_model and make_policy
 
 
 @torch.no_grad()
@@ -152,8 +152,8 @@ def my_main(cfg: DictConfig):
     logger = Logger(cfg) ## wandb (unless testing) and TensorBoard
 
     names = [cfg.dataset.robot_dataset_name] if isinstance(cfg.dataset.robot_dataset_name, str) else list(cfg.dataset.robot_dataset_name)
-    ## The camera of each robot dataset: one key for all, or one per dataset, or with dataset.cameras the same list of
-    ## cameras for all, side by side
+    ## The camera of each robot dataset: one key for all, or one per dataset (Bridge has only the agent view), or
+    ## with dataset.cameras the same list of cameras for all, side by side
     keys = [list(cfg.dataset.cameras)] * len(names) if cfg.dataset.cameras else cfg.dataset.robot_image_key
     cfg.dataset.robot_image_key = [keys] * len(names) if isinstance(keys, str) else list(keys)
     assert len(cfg.dataset.robot_image_key) == len(names), \
@@ -179,12 +179,16 @@ def my_main(cfg: DictConfig):
     cfg.action_dim = len(frames[0]["action"])
     ## Whitening stats from the frames of the train episodes (reads only the action and pose columns). They are stored
     ## in cfg, which is saved with the model, so predictions can be mapped back with action * std + mean. Actions get
-    ## the stats of their own dataset; action_mean/std, over all the robot data, are for task sets without a dataset.
+    ## the stats of their own dataset, since the datasets' action units differ (LIBERO's and ManiSkill's are in
+    ## [-1, 1], Bridge's in m/s and rad/s); action_mean/std, over all the robot data, are for task sets without a dataset.
+    ## They are the stats of the actions as the batches hold them (data_loading.to_batch_actions: rotations as
+    ## axis-angle, Bridge's as velocities).
     rows_of = lambda eps: np.concatenate([np.arange(s, s + n) for s, n in zip(eps["dataset_from_index"], eps["length"])])
     column = lambda rows, key: np.stack(frames.select(rows).with_format("arrow")[key].to_numpy(zero_copy_only=False)).astype(np.float64)
     mean_std = lambda x: {"mean": x.mean(0).tolist(), "std": np.maximum(x.std(0), 1e-6).tolist()}
     train_rows = rows_of(episodes[n_val:])
-    actions = {repo_id: column(rows_of(eps), "action") for repo_id, eps in episodes[n_val:].groupby("dataset", sort=False)}
+    actions = {repo_id: to_batch_actions(torch.from_numpy(column(rows_of(eps), "action")), repo_id, eps["fps"].iloc[0]).numpy()
+               for repo_id, eps in episodes[n_val:].groupby("dataset", sort=False)}
     cfg.dataset.action_stats = {repo_id: mean_std(a) for repo_id, a in actions.items()}
     all_actions = mean_std(np.concatenate(list(actions.values())))
     cfg.dataset.action_mean, cfg.dataset.action_std = all_actions["mean"], all_actions["std"]

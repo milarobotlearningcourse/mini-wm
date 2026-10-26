@@ -7,7 +7,7 @@ defaults:
 
 experiment:
   name: vlaps
-  project: mini-wm
+  project: mini-fm
 
 trainer: vlaps ## mini_train.py runs the search (mini_vlaps.py)
 

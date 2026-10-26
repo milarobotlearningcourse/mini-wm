@@ -1,0 +1,76 @@
+## The sim evals of the full mix (sim_eval.py): every LIBERO suite and ManiSkill task set below, for dataset=full
+## sim=full; the default, default.yaml, is LIBERO-90 alone. Its keys are under sim. in the run's config.
+## Every task set listed under simulators below is evaluated (comment one out
+## to skip it), whatever the datasets trained on. Each runs with the camera of its dataset (dataset.robot_image_key) at
+## image_shape, and its actions are un-whitened with that dataset's stats (all the data's, if none was trained on). Results go
+## to sim/success_rate (the mean over task sets), sim/success_rate_<task set> and sim_<task set>/task_<id>, with one
+## rollout video per task in sim_eval/<task set>/ of the run folder.
+simulators: ## each simulator's eval settings (how many tasks and episodes each sim eval runs, read by sim_eval.eval_sim_suites),
+  ## and the task sets it evaluates (mini_train.py), with a description of each, logged with the run's config. Each eval took about 38 min with 2 LIBERO init states and
+  ## 16 ManiSkill episodes, and slowed training by about 35% (the background evals share the training GPU and CPUs): reduced on 2026-10-08.
+  libero:
+    engine: "robosuite on MuJoCo, on the CPU (one env process per task)"
+    eval_tasks: null ## task ids to sample from in each suite; null means all of the suite's tasks
+    tasks_per_eval: 10 ## tasks sampled from each suite at every sim eval (a new random sample each time): all of spatial, goal and 10, 10 of libero_90
+    num_init_states: [0] ## the episodes per task, one from each of these init states (e.g. [0, 1] for two): init state i of a task is
+      ## the scene its i-th demo started from in the dataset trained on the suite (sim_eval.dataset_init_states; LIBERO's fixed
+      ## benchmark init states for tasks without demos or suites not trained on): 40 LIBERO episodes per eval. With [0, 1] (80 episodes), an eval took about 230 s on 6 CPUs and its mean LIBERO success was
+      ## within about +-0.06 (outputs/sim_screening).
+    episode_length: 400 ## max steps per episode in every suite; null means LIBERO's standard limit for each suite (spatial 220, object 280, goal 300, 10 520, 90 400)
+    wait_steps: 10 ## no-op steps first, so objects settle (as in the dataset regeneration)
+    task_sets:
+      # libero_spatial:
+      #   robot: Franka Panda
+      #   dataset: gberseth/libero_spatial_no_noops_lerobot
+      #   tasks: "10: pick a black bowl, told apart by its location, and place it on the plate"
+      # libero_goal:
+      #   robot: Franka Panda
+      #   dataset: gberseth/libero_goal_no_noops_lerobot
+      #   tasks: "10: different goals in one scene"
+      # libero_10:
+      #   robot: Franka Panda
+      #   dataset: gberseth/libero_10_no_noops_lerobot
+      #   tasks: "10: long-horizon, two goals each"
+      libero_90:
+        robot: Franka Panda
+        dataset: gberseth/libero_90_no_noops_lerobot
+        tasks: "90: short tasks in kitchen, living room and study scenes"
+      # libero_object:
+      #   robot: Franka Panda
+      #   dataset: gberseth/libero_object_no_noops_lerobot
+      #   tasks: "10: pick an object and place it in the basket (evaluated only if trained on)"
+  maniskill:
+    engine: "ManiSkill 3 (SAPIEN, GPU PhysX): all of a task's episodes run at once, in parallel envs on the GPU"
+    episodes: 4 ## episodes per task (each Bridge ManiSkill task is one), from seeds 0 .. episodes - 1, to the task's step limit (longer for the
+      ## motion-planning tasks: sim_eval.MANISKILL_STEPS)
+    task_sets: ## each task set's tasks lists the envs its evals run (sim_eval.maniskill_envs); without it, all of them
+      # maniskill_panda:
+      #   robot: Franka Panda with its gripper
+      #   dataset: gberseth/maniskill_panda_lerobot
+      #   cameras: agent view and wrist
+      #   tasks: [PickCube-v1, PushCube-v1, PullCube-v1, PokeCube-v1, StackCube-v1, LiftPegUpright-v1, RollBall-v1,
+      #           PegInsertionSide-v1, PlugCharger-v1, PullCubeTool-v1, StackPyramid-v1]
+      # maniskill_panda_stick:
+      #   robot: Franka Panda with a stick (no gripper)
+      #   dataset: gberseth/maniskill_panda_stick_lerobot
+      #   cameras: agent view and stick
+      #   tasks: [PushT-v1, DrawTriangle-v1]
+      # PushT-v1:
+      #   robot: Franka Panda with a stick (no gripper)
+      #   dataset: "gberseth/maniskill_pusht_lerobot (its actions are clipped: use maniskill_panda_stick)"
+      #   cameras: agent view and stick
+      #   tasks: [PushT-v1]
+      bridge:
+        robot: WidowX 250s, at 5 Hz
+        datasets: "gberseth/bridge_orig_lerobot (real robot data; Bridge ManiSkill rebuilds some of its scenes), and the demos recorded in Bridge ManiSkill's PutSpoon,
+          PutCarrot and StackCube (in Bridge's labels: data_loading.BRIDGE_TWIN_DEMOS)"
+        cameras: agent view, with a photo of the real scene overlaid
+        tasks: [PutCarrotOnPlateInScene-v1, PutSpoonOnTableClothInScene-v1, StackGreenCubeOnYellowCubeBakedTexInScene-v1]
+          ## left out: PutEggplantInBasketScene-v1, the slowest Bridge ManiSkill task: 45% of the sim eval time of 11143996 (log 2026-10-09)
+  none: ## no sim to evaluate in
+    datasets: [gberseth/maniskill_pushletter_lerobot]
+    why: "its env, PushLetter-v1, is not in ManiSkill"
+eval_interval: 10000 ## steps between sim evaluations (at 10k, 20k and the last step of a 25k-step run); 0 turns them off
+background: true ## run them in a separate low-priority process, so training doesn't wait (false: in the training process, which waits)
+device: cpu ## where the background evaluator runs the model: cpu leaves the GPU to training
+task_sets: null ## null evaluates every task set listed under simulators; a list (e.g. sim.task_sets=[libero_spatial,bridge]) overrides that, as some tests do

@@ -3,7 +3,7 @@ import math
 import re
 import unittest
 
-from tests.test_mini_fm_smoke import run_mini_fm
+from test_mini_fm_smoke import run_mini_fm
 
 """Smoke test for mini_tdmpc2.py, TD-MPC2 learned offline from the demonstrations (its own policy, which plans
 with MPPI), trained by mini_train.py: the short run of conf/tests/mini-tdmpc2-testing.yaml (300 steps on

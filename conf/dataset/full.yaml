@@ -1,0 +1,53 @@
+## The full mix of robot data: LIBERO, ManiSkill and the WidowX data, for screening and long runs (dataset=full
+## sim=full); the default, default.yaml, is LIBERO-90 alone. Under dataset. in the run's config.
+robot_dataset_name: ## LeRobot v3 datasets (parquet + MP4) made with openvla's regenerate_libero_dataset.py (LIBERO), regenerate_maniskill_dataset.py (ManiSkill) or regenerate_bridge_dataset.py (Bridge); one name or a list
+  - gberseth/libero_spatial_no_noops_lerobot
+  - gberseth/libero_goal_no_noops_lerobot
+  - gberseth/libero_10_no_noops_lerobot
+  - gberseth/libero_90_no_noops_lerobot
+  - gberseth/maniskill_panda_lerobot ## ManiSkill tabletop: 11 Panda tasks (PickCube, StackCube, PegInsertionSide, ...)
+  - gberseth/maniskill_panda_stick_lerobot ## ManiSkill PushT-v1 and DrawTriangle-v1 (a stick instead of a gripper), with the recorded (unclipped) actions
+  - gberseth/bridge_orig_lerobot ## BridgeData V2 (real WidowX, 5 Hz, evaluated in Bridge ManiSkill); no joint positions, so policy.use_pose_data=false
+  - gberseth/maniskill_pushletter_lerobot ## ManiSkill PushLetter-v1 (WidowX pushes a letter T onto its outline); its env isn't in ManiSkill, so no sim eval
+  - gberseth/maniskill_putspoonontablecloth_lerobot ## demos in Bridge ManiSkill's PutSpoonOnTableClothInScene-v1 (WidowX, 5 Hz), evaluated in it
+  - gberseth/maniskill_putcarrotonplate_lerobot ## demos in Bridge ManiSkill's PutCarrotOnPlateInScene-v1, evaluated in it
+  - gberseth/maniskill_stackcube_lerobot ## demos in Bridge ManiSkill's StackGreenCubeOnYellowCubeBakedTexInScene-v1, evaluated in it
+robot_dataset_weights: [0.1,0.1,0.1,0.15,0.1,0.05,0.2,0.05,0.05,0.05,0.05] ## Probability of sampling from each robot dataset above, in the same order, summing to 1; null means equal
+  ## (1/11 each here). A dataset's share is split evenly over its episodes, so it doesn't depend on its size. The WidowX
+  ## data (Bridge, PushLetter and the three Bridge ManiSkill demo sets) gets 0.4, for the real WidowX and Bridge ManiSkill.
+robot_image_key: ## The camera of each robot dataset above, in the same order (or one key for all): observation.images.wrist_image
+  ## (wrist) or observation.images.image (agent view). Each sim eval renders the camera of its dataset.
+  - observation.images.wrist_image ## libero_spatial
+  - observation.images.wrist_image ## libero_goal
+  - observation.images.wrist_image ## libero_10
+  - observation.images.wrist_image ## libero_90
+  - observation.images.wrist_image ## ManiSkill Panda
+  - observation.images.wrist_image ## ManiSkill Panda stick (a camera on the stick)
+  - observation.images.image ## Bridge: our export has only the agent view
+  - observation.images.image ## PushLetter: only the agent view
+  - observation.images.image ## PutSpoon (Bridge ManiSkill): only the agent view
+  - observation.images.image ## PutCarrot (Bridge ManiSkill): only the agent view
+  - observation.images.image ## StackCube (Bridge ManiSkill): only the agent view
+cameras: [observation.images.wrist_image, observation.images.image] ## fm only (the default since 2026-10-06): the cameras every robot
+  ## image shows side by side, left to right, instead of robot_image_key's one per dataset; null for one camera per dataset
+  ## (then image_block_size 64; mini-WAM and the convnet take one). A dataset without one of them (Bridge, PushLetter and
+  ## PutSpoon have no wrist camera) gets a blank image there, masked out, in training and in its sim eval.
+robot_frames_per_episode: 4 ## Robot samples taken from each sampled trajectory (1 = one frame per trajectory); fewer video opens, less batch diversity
+buffer_size: 50000
+action_stats: null ## {robot dataset: {mean, std}}: each dataset's per-dimension action mean and std, which its actions are whitened with; computed by code from the robot train split
+action_mean: null ## Per-dimension action mean and std over all the robot data (the train split), for sim task sets no dataset was trained on
+action_std: null
+pose_mean: null ## Per-dimension robot pose mean and std for whitening; computed by code from the robot train split
+pose_std: null
+encode_with_t5: false
+t5_version: "t5-small"
+chars_list:  [' ', ',', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+ '!', '?', '"', "'", '(', ')', '-', '_', ':', ';',
+ '@', '#', '$', '%', '&', '*', '+', '=', '<', '>', '/', '\\', '|', '~', '`',
+ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+load_dataset: true
+cache: cpu ## cpu (the default since 2026-10-06): decode every image once at startup and keep the datasets in RAM (54 GB peak for the full mix with two cameras), so any 40 GB GPU fits and runs as fast (log 2026-10-06); cuda: the same on the GPU; none: decode per batch in DataLoader workers
+cache_episodes: 100000 ## Robot trajectory slots in the cache; with fewer than the dataset has, a background thread keeps swapping episodes in from disk
+cache_swap_workers: 1 ## Processes decoding the episodes swapped into the robot cache (at the lowest OS priority)
+num_workers: 4 ## DataLoader workers that decode and resize images on the fly (cache=none); the cache is filled by one process per CPU
